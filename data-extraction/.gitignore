@@ -1,5 +1,5 @@
 *.pyc
-*.sh
+*config.sh
 *__pycache__*
 *.swp
 *.env
