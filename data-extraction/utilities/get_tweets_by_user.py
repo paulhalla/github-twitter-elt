@@ -5,7 +5,7 @@ from auth.auth import BearerTokenAuth
 
 
 
-def create_url(user_id: str) -> str:
+def create_url_tweets(user_id: str) -> str:
 
     """ Generate the endpoint to get a user's tweets 
 
@@ -23,15 +23,15 @@ def create_url(user_id: str) -> str:
         A valid endpoint that produces the user's details
 
     """ 
+    # reference: https://developer.twitter.com/en/docs/twitter-api/fields
+    tweet_fields = "tweet.fields=created_at,public_metrics"
+
+    return 'https://api.twitter.com/2/users/{}/tweets?{}'.format(user_id, tweet_fields)
 
 
-def get_params():
-
-    return {"tweet.fields":; "created_at"}
 
 
-
-def get_user_tweets(url: str) -> json:
+def get_user_tweets(url: str, params: dict=None) -> json:
 
     """ Get a user's tweets
 
@@ -53,7 +53,13 @@ def get_user_tweets(url: str) -> json:
     consumer_secret = os.environ.get('consumer_secret')
     bearer_token = BearerTokenAuth(consumer_key, consumer_secret)
 
-    response = requests.request('GET', url, auth=bearer_token)
+
+    if params is not None:
+        response = requests.request('GET', url, auth=bearer_token, params=params)
+
+    else:
+        response = requests.request('GET', url, auth=bearer_token)
+
 
     if response.status_code != 200:
         raise Exception("Request returned an error: {} {}".format(
@@ -61,11 +67,5 @@ def get_user_tweets(url: str) -> json:
         ))
 
     return response.json()
-
-
-
-
-
-
 
 

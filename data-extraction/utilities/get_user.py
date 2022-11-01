@@ -5,7 +5,7 @@ from auth.auth import BearerTokenAuth
 
 
 
-def create_url(user_name='__KingMoh') -> str:
+def create_url_user(user_name='__KingMoh') -> str:
 
     """ Generate the endpoint to get user details 
 
@@ -24,7 +24,7 @@ def create_url(user_name='__KingMoh') -> str:
     """
 
     usernames = f"usernames={user_name}"
-    user_fields = "user.fields=id,description,created_at"
+    user_fields = "user.fields=id,description,created_at,pinned_tweet_id,public_metrics,verified"
     url = "https://api.twitter.com/2/users/by?{}&{}".format(usernames, user_fields)
 
     return url

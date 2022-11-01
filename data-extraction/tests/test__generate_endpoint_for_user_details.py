@@ -1,4 +1,4 @@
-from utilities.get_user import create_url, get_user_details
+from utilities.get_user import create_url_user, get_user_details
 from auth.auth import BearerTokenAuth
 import requests
 import os
@@ -18,7 +18,7 @@ class TestGetUserDetails:
     def test__get_url_for_user_details(self):
 
         user = '__KingMoh'
-        url = create_url(user)
+        url = create_url_user(user)
 
         assert user != ''
         assert user in url 
@@ -28,7 +28,7 @@ class TestGetUserDetails:
     def test__get_user_details(self):
 
         user = '__KingMoh'
-        url = create_url(user)
+        url = create_url_user(user)
 
         details = get_user_details(url)
 
