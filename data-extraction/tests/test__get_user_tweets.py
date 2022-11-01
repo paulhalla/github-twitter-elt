@@ -80,16 +80,20 @@ class TestGetTweets:
 
                 tweets = get_user_tweets(tweet_url, params=params)
                 data_df = pd.concat([data_df, pd.json_normalize(tweets.get('data'))])
+                data_df['user_id'] = user_id
 
                 continue
 
             break
-                
+
+
+        print(tweets)
+        exit()
             
 
-        rows_returned = data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='append', index=False)
+        rows_returned = data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='replace', index=False)
 
-        assert rows_returned is not None
+        assert rows_returned is None
         assert user_id is not None
 
 
