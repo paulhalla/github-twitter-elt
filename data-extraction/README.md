@@ -10,5 +10,46 @@
 	- Tweet watermarks are stored in the `tweet_watermarks` table.
 
 3. Create raw and serving schemas
+
+```sql
+
+-- create schema 
+create schema raw;
+
+
+-- Create the user table
+drop table if exists raw.tbl_users;
+
+create table raw.tbl_users (
+	pinned_tweet_id varchar,
+	id varchar,
+	username varchar,
+	verified varchar,
+	name varchar,
+	description varchar,
+	created_at varchar,
+	"public_metrics.followers_count" varchar,
+	"public_metrics.following_count" varchar,
+	"public_metrics.tweet_count" varchar,
+	"public_metrics.listed_count" varchar
+);
+
+
+-- Create the raw tweet table 
+create table raw.tbl_tweets (
+	id varchar,
+	text varchar,
+	created_at varchar,
+	edit_history_tweet_ids varchar,
+	"public_metrics.retweet_count" varchar,
+	"public_metrics.reply_count" varchar,
+	"public_metrics.like_count" varchar,
+	"public_metrics.quote_count" varchar
+);
+
+
+```
+
+
 4. Team members can then use airbyte to replicate the data in snowflake. 
 
