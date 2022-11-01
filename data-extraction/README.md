@@ -14,6 +14,7 @@
 ```sql
 
 -- create schema 
+drop schema if exists raw cascade;
 create schema raw;
 
 
@@ -35,8 +36,11 @@ create table raw.tbl_users (
 );
 
 
+drop table if exists raw.tbl_tweets;
+
 -- Create the raw tweet table 
 create table raw.tbl_tweets (
+	user_id varchar,
 	id varchar,
 	text varchar,
 	created_at varchar,
@@ -48,8 +52,9 @@ create table raw.tbl_tweets (
 );
 
 
+create schema serving;
 ```
 
-
-4. Team members can then use airbyte to replicate the data in snowflake. 
+4. Host airbyte on AWS.
+5. Team members can then use airbyte to replicate the data in snowflake. 
 
