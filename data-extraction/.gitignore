@@ -2,3 +2,4 @@
 *.sh
 *__pycache__*
 *.swp
+*.env
