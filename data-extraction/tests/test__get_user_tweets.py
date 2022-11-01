@@ -2,8 +2,10 @@ from utilities.get_user import create_url_user, get_user_details
 from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
 from auth.auth import BearerTokenAuth
 from database.postgres import create_pg_engine
+import boto3
 import pandas as pd
 import requests 
+import json
 import os 
 
 
@@ -43,9 +45,10 @@ class TestGetTweets:
 
 
     def test__get_user_tweets(self):
-
+        
+        user_name = 'TwitterDev'
         engine = create_pg_engine()
-        user_url = create_url_user(user_name='TwitterDev')
+        user_url = create_url_user(user_name=user_name)
         user_id = get_user_details(user_url).get('data')[0].get('id')
 
         # use pagination to get all tests over a period
@@ -62,10 +65,18 @@ class TestGetTweets:
 
         # get some tweets 
         tweets = get_user_tweets(tweet_url, params=params)
+
+        # push tweets to s3
+        s3 = boto3.resource('s3')
+        s3object = s3.Object('decbrismoh-snowflake', f'test/{user_name}.json')
+
+        s3object.put(
+            Body=(bytes(json.dumps(tweets).encode('UTF-8')))
+        )
         
-        data_df = pd.json_normalize(tweets.get('data'))
-        meta_data = pd.json_normalize(tweets.get('meta'))
-        data_df['user_id'] = user_id
+        # data_df = pd.json_normalize(tweets.get('data'))
+        # meta_data = pd.json_normalize(tweets.get('meta'))
+        # data_df['user_id'] = user_id
 
         while True:
 
@@ -79,21 +90,22 @@ class TestGetTweets:
                 }
 
                 tweets = get_user_tweets(tweet_url, params=params)
-                data_df = pd.concat([data_df, pd.json_normalize(tweets.get('data'))])
-                data_df['user_id'] = user_id
+                # data_df = pd.concat([data_df, pd.json_normalize(tweets.get('data'))])
+                # data_df['user_id'] = user_id
+
+                # data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='replace', index=False)
+
+                # push tweets to s3 
+                s3object = s3.Object('decbrismoh-snowflake', f'test/{user_name}-{params.get("pagination_token")}[:3].json')
+       
+
+                s3object.put(
+                    Body=(bytes(json.dumps(tweets).encode('UTF-8')))
+                )
 
                 continue
 
             break
 
-
-        print(tweets)
-        exit()
-            
-
-        rows_returned = data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='replace', index=False)
-
-        assert rows_returned is None
-        assert user_id is not None
-
+        assert tweets is not None
 

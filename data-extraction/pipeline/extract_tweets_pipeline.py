@@ -2,9 +2,11 @@ from utilities.get_user import create_url_user, get_user_details
 from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
 from auth.auth import BearerTokenAuth
 from database.postgres import create_pg_engine
+import boto3
 import yaml
 import pandas as pd
 import logging
+import json
 
 
 
@@ -13,6 +15,11 @@ def main():
 
     with open('./pipeline/config.yaml', 'r') as file:
         config = yaml.safe_load(file)
+
+    # s3 bucket 
+    s3 = boto3.resource('s3')
+    bucket_name = 'decbrismoh-snowflake'
+    folder = 'dec-project-2'
 
     
     # set up logging
@@ -23,9 +30,9 @@ def main():
     with open('user_data/users.txt', 'r') as file:
 
         user_handles = file.readlines()
-        cleaned_handles = [user.split('.com/')[-1].strip() for user in user_handles]
+        cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
 
-    
+
     # postgres engine
     engine = create_pg_engine()
 
@@ -46,15 +53,14 @@ def main():
             continue
 
 
-
-        data_df = pd.json_normalize(tweets.get('data'))
-        meta_data = pd.json_normalize(tweets.get('meta'))
-        data_df['user_id'] = user_id
-
         # Save records
         try:
-            data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='append', index=False)
-            logging.info(f'Successfully saved tweets for user: {user}')
+            s3object = s3.Object(bucket_name, f'{folder}/{user}.json')
+            s3object.put(
+                Body=(bytes(json.dumps(tweets).encode('UTF-8')))
+            )
+            logging.info(f'Successfully saved tweets for user: {user} at {bucket_name}')
+
         
         except BaseException as err:
             logging.exception(err)
@@ -68,24 +74,25 @@ def main():
 
                 config['pagination_token'] = tweets.get('meta').get('next_token')
                 tweets = get_user_tweets(tweet_url, params=config)
-                data_df = pd.concat([data_df, pd.json_normalize(tweets.get('data'))])
-                data_df['user_id'] = user_id
 
                 # Save records
                 try:
-                    data_df.to_sql('tbl_tweets', con=engine, schema='raw', if_exists='append', index=False)
+                    s3object = s3.Object(bucket_name, f'{folder}/{user}-{config.get("pagination_token")[:3]}.json')
+                    s3object.put(
+                        Body=(bytes(json.dumps(tweets).encode('utf-8')))
+                    )
                 
                 except BaseException as err:
                     logging.exception(err)
                     return None
 
-                logging.info('Successfully saved tweets from next page for user: {user}')
+                logging.info(f'Successfully saved tweets from next page for user: {user} at {bucket_name}')
                 continue 
 
             break
 
         
-        return True
+    return True
 
 
 
