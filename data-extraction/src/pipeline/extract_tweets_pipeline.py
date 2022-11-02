@@ -1,7 +1,6 @@
 from utilities.get_user import create_url_user, get_user_details 
 from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
 from auth.auth import BearerTokenAuth
-from database.postgres import create_pg_engine
 import boto3
 import yaml
 import pandas as pd
@@ -33,8 +32,6 @@ def main():
         cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
 
 
-    # postgres engine
-    engine = create_pg_engine()
 
     for user in cleaned_handles:
 
