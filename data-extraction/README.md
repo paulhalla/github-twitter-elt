@@ -21,6 +21,15 @@
 
 ### Deploy Airbyte on AWS (EC2)
 - https://docs.airbyte.com/deploying-airbyte/on-aws-ec2/
+
 	Make sure to change the password in the `.env` file afterwards.
+
+
+<br/>
+
+### Snowpipe 
+- [Introduction to Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html)
+- [Automating Snowpipe with Amazon S3](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-auto-s3.html)
+- [Overview of the Snowpipe REST Endpoints to Load Data](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-rest-overview.html)
 
 
