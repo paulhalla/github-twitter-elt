@@ -1,0 +1,8 @@
+*.pyc
+*config.sh
+*__pycache__*
+*.swp
+.env
+*.cer
+*.log
+logs*
