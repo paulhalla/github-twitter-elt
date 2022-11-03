@@ -1,5 +1,5 @@
-from src.get_user import create_url_user, get_user_details 
-from src.get_tweets_by_user import create_url_tweets, get_user_tweets
+from utilities.get_user import create_url_user, get_user_details 
+from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
 from airflow import DAG
 from airflow.decorators import task
 from auth.auth import BearerTokenAuth
