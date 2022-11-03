@@ -23,6 +23,11 @@
 # Airflow fundamental concepts
 - https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html
 
+<br/>
+
+# How to structure DBT Projects
+- [Why does structure matter?](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview)
+
 
 <br/>
 
