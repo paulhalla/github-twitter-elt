@@ -1,5 +1,11 @@
 <br/>
 
+# Helpful References
+
+<blockquote>Think of <b>Idempotence</b> in the design of your DAGS </blockquote>.
+
+<br/>
+
 # Setting up Airflow on an EC2 instance
 
 1. Provision a t2.medium EC2 instance with a Ubuntu image.
@@ -13,7 +19,7 @@
 
 <br/>
 
-# Dockefile that installs DBT in a virtual environment r
+# Dockerfile that installs DBT in a virtual environment 
 
 ```dockerfile
 
@@ -55,4 +61,5 @@ dbt_build = BaseOperator(
   ")
 ```
 
+<br/>
 
