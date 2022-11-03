@@ -2,7 +2,9 @@
 
 # Helpful References
 
-<blockquote>Think of <b>Idempotence</b> in the design of your DAGS </blockquote>.
+<blockquote style='font-size:2.5rem'>Think of <b>Idempotence</b> in the design of your DAGS </blockquote>
+
+*Heng Ji*
 
 <br/>
 
@@ -98,6 +100,7 @@ dbt_build = BaseOperator(
 - Use airflow to buid `dbt` models.
 - Use airflow to trigger airbyte syncs (github data)
 - Use the snowflake operator to reload new `json` files from `s3`. 
+- How can we improve monitoring?
 
 <br/>
 
