@@ -25,7 +25,7 @@ with DAG(
     def extract():
         
 
-        with open('/opt/airflow/dags/config.yaml', 'r') as file:
+        with open('/opt/airflow/dags/tweets_dag/config.yaml', 'r') as file:
             config = yaml.safe_load(file)
 
         # s3 bucket 
@@ -39,7 +39,7 @@ with DAG(
 
 
         # Twitter handles of data influencers
-        with open('/opt/airflow/dags/user_data/users.txt', 'r') as file:
+        with open('/opt/airflow/dags/tweets_dag/user_data/users.txt', 'r') as file:
 
             user_handles = file.readlines()
             cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
