@@ -63,6 +63,7 @@ x-airflow-common:
     consumer_secret: ${consumer_secret}
     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    PYTHONPATH: ${PYTHONPATH}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs

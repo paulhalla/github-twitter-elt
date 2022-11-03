@@ -6,3 +6,4 @@
 *.cer
 *.log
 logs*
+plugins*
