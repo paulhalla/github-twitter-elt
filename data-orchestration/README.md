@@ -1,7 +1,19 @@
-# How to install `docker-compose`
+<br/>
 
-Learn how to install `docker-compose` [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
+# Setting up Airflow on an EC2 instance
 
+1. Provision a t2.medium EC2 instance with a Ubuntu image.
+2. Make sure to download a certificate for authentication.
+3. Once the EC2 instance is provisioned, go [here](https://docs.airbyte.com/deploying-airbyte/on-aws-ec2/) to learn how to login.
+4. Follow [this](https://docs.docker.com/engine/install/ubuntu/) to learn how to install docker.
+5. Learn how to install `docker-compose` [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
+6. [Install](https://github.com/git-guides/install-git)  git to pull the repo.
+7. Navigate to the project (`dec-project-2/data-orchestration`) and run `sudo docker-compose up -d` to start all the airflow services.
+
+
+<br/>
+
+# Dockefile that installs DBT in a virtual environment r
 
 ```dockerfile
 
