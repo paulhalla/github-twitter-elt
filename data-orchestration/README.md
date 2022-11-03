@@ -22,5 +22,25 @@ ENV PIP_USER=true
 USER airflow
 ```
 
+<br/>
+
+
+# An example of a DBT Build
+
+```python 
+
+dbt_env_json = '{{ var.json.DBT_ENV }}'
+
+dbt_build = BaseOperator(
+  task_id='dbt_build',
+  env=dbt_env_json,
+  bash_command="
+      cp -R /opt/airflow/dags/dbt /tmp;\
+      cd /tmp/dbt/decdotcom;\
+      /usr/local/airflow/dbt_env/bin/dbt deps;\
+      /usr/local/airflow/dbt_env/dbt build --project-dir /tmp/dbt/decdotcom/ --profiles-dir . --target prod;\
+      cat /tmp/dbt_logs/dbt.log;
+  ")
+```
 
 
