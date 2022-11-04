@@ -1,4 +1,5 @@
 *.pyc
+*DS_Store
 *config.sh
 *__pycache__*
 *.swp
@@ -12,3 +13,4 @@ airflow.cfg
 airflow.db
 standalone_admin_password.txt
 webserver_config.py
+connections.json
