@@ -38,7 +38,15 @@
 - Test your task changes. You can run your dag on a standalone server
 
 	```bash 
-	docker run -p 8070:8080 -v /$(pwd):/opt/airflow -d apache/airflow:2.4.0 standalone
+	docker run -p 8070:8080 -v /$(pwd):/opt/airflow --env-file .env  extended-airflow standalone
+	```
+
+	`exec` into the running container and run a test.
+
+	```bash 
+	docker exec -it container-name bash;
+
+	airflow dags test dag-id [run_date]
 	```
 - Submit your task changes and tests for review (add screenshots if necessary)
 - Get a reviewer to merge your changes.
