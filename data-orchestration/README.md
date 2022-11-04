@@ -34,9 +34,12 @@
 - Do not run the DAG locally. (Open to ideas)
 
 ## Push changes
-- Create a branch off *main*.
 - Make your task changes.
-- Test your task changes.
+- Test your task changes. You can run your dag on a standalone server
+
+	```bash 
+	docker run -p 8070:8080 -v /$(pwd):/opt/airflow -d apache/airflow:2.4.0 standalone
+	```
 - Submit your task changes and tests for review (add screenshots if necessary)
 - Get a reviewer to merge your changes.
 

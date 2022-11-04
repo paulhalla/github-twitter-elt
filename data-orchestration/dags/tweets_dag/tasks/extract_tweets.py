@@ -8,7 +8,7 @@ import json
 
 def extract():
 
-    with open('/opt/airflow/dags/config.yaml', 'r') as file:
+    with open('/opt/airflow/dags/tweets_dag/tasks/config.yaml', 'r') as file:
         config = yaml.safe_load(file)
 
     # s3 bucket config
@@ -48,7 +48,7 @@ def extract():
         tweets = get_user_tweets(tweet_url, params=twitter_config)
 
         if tweets.get('meta').get('result_count') == 0:
-            logging.info(f'{user} has no tweets between {config.get("start_time")} and {config.get("end_time")}')
+            logging.info(f'{user} has no tweets between {config.get("tweet_period_config").get("start_time")} and {config.get("tweet_period_config").get("end_time")}')
             continue
 
 
@@ -80,11 +80,11 @@ def extract():
 
                 # Save records
                 try:
-                    tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}-{twitter_config.get("pagination_token")[:3]}.json')
+                    tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}-{twitter_config.get("pagination_token")}.json')
                     tweets3Object.put(
                         Body=(bytes(json.dumps(tweets).encode('utf-8')))
                     )
-                    logging.info(f'Successfully saved tweets from next page for user: {user} at s3://{bucket_name}/{tweets_folder}/{user}-{twitter_config.get("pagination_token")[:3]}.json')
+                    logging.info(f'Successfully saved tweets from next page for user: {user} at s3://{bucket_name}/{tweets_folder}/{user}-{twitter_config.get("pagination_token")}.json')
                 
                 except BaseException as err:
                     logging.exception(err)
