@@ -27,6 +27,22 @@
 
 <br/>
 
+# Pipeline development workflow
+
+## Running recent changes
+- Pull recent changes from [main](https://github.com/paulhalla/dec-project-2)
+- Run the DAG locally
+
+## Push changes
+- Create a branch off *main*.
+- Make your changes.
+- Perform a regression test on the whole DAG.
+- Submit your changes for review (add screenshots if necessary)
+- Get a reviewer to merge your changes.
+
+<br/>
+
+
 # How to structure DBT Projects
 - [Why does structure matter?](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview)
 
