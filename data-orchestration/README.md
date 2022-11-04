@@ -31,13 +31,13 @@
 
 ## Running recent changes
 - Pull recent changes from [main](https://github.com/paulhalla/dec-project-2)
-- Run the DAG locally
+- Do not run the DAG locally. (Open to ideas)
 
 ## Push changes
 - Create a branch off *main*.
-- Make your changes.
-- Perform a regression test on the whole DAG.
-- Submit your changes for review (add screenshots if necessary)
+- Make your task changes.
+- Test your task changes.
+- Submit your task changes and tests for review (add screenshots if necessary)
 - Get a reviewer to merge your changes.
 
 <br/>
