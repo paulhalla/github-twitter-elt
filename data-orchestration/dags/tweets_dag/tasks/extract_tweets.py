@@ -1,5 +1,6 @@
 from utilities.get_user import create_url_user, get_user_details 
 from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
+from random import randrange
 import boto3
 import yaml
 import logging
@@ -36,21 +37,9 @@ def extract():
     num_of_user_requests = 0
 
 
+    for user in cleaned_handles[:10]:
 
-    # for user in cleaned_handles[:10]:
-    for user in ['marcosluis2186']:
-
-        time.sleep(5)
-
-        # 300 requests/15 minutes
-        if num_of_user_requests == 300:
-            logging.info(f'Max endpoint hits for users have been reached. Sleeping for 15 minutes')
-            time.sleep(920)
-
-        # 900 requests/15 minutes
-        if num_of_tweet_requests == 900:
-            logging.info(f'Max endpoint hits for tweets have been reached. Sleeping for 15 minutes')
-            time.sleep(920)
+        time.sleep(randrange(2, 5))
 
         users3Object = s3.Object(bucket_name, f'{users_folder}/{user}.json')
         tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}.json')
@@ -69,6 +58,12 @@ def extract():
         # increment requests 
         num_of_tweet_requests += 1
         num_of_user_requests += 1
+
+        # 300 requests/15 minutes
+        if num_of_user_requests % 10 == 0:
+            logging.info(f'Max endpoint hits for users have been reached. Sleeping for 15 minutes')
+            time.sleep(10)
+
 
         if tweets.get('meta').get('result_count') == 0:
             logging.info(f'{user} has no tweets between {config.get("tweet_period_config").get("start_time")} and {config.get("tweet_period_config").get("end_time")}')
@@ -93,9 +88,16 @@ def extract():
             logging.exception(err)
             return None
 
+        time.sleep(randrange(2, 5))
+
 
         # Get more tweets if possible
         while True:
+
+            # 900 requests/15 minutes
+            if num_of_tweet_requests % 70 == 0:
+                logging.info(f'Max endpoint hits for tweets have been reached. Sleeping for 15 minutes')
+                time.sleep(200)
 
             if tweets.get('meta').get('next_token'):
 
@@ -112,6 +114,8 @@ def extract():
                     )
                     logging.info(f'Successfully saved tweets from next page for user: {user} at s3://{bucket_name}/{tweets_folder}/{user}-{twitter_config.get("pagination_token")}.json')
                     logging.info(f'Number of requests: Users={num_of_user_requests} Tweets={num_of_tweet_requests}')
+
+                    time.sleep(randrange(3, 6))
                 
                 except BaseException as err:
                     logging.exception(err)

@@ -51,7 +51,7 @@ class TestGetTweets:
         # reference: https://developer.twitter.com/en/docs/twitter-api/pagination
         params = {
             'start_time': '2012-01-01T00:00:00Z',
-            'end_time': '2022-11-03T23:59:00Z',
+            'end_time': '2012-01-02T00:00:00Z',
             'max_results': 100,
             'pagination_token': None
         }
@@ -70,7 +70,7 @@ class TestGetTweets:
             Body=(bytes(json.dumps(tweets).encode('UTF-8')))
         )
 
-        print(get_user_details(user_url))
+        print(tweets)
 
         
         # data_df = pd.json_normalize(tweets.get('data'))
