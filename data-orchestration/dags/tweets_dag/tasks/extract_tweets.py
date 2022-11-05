@@ -39,7 +39,10 @@ def extract():
 
     for user in cleaned_handles:
 
-        time.sleep(randrange(10, 20))
+        if num_of_user_requests == 5:
+            # process 5 users per day
+            logging.info('Max endpoint hits for users have been reached. Sleeping for {:.2f} hours'.format((86400/3600)))
+            time.sleep(86400)
 
         users3Object = s3.Object(bucket_name, f'{users_folder}/{user}.json')
         tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}.json')
@@ -58,11 +61,6 @@ def extract():
         # increment requests 
         num_of_tweet_requests += 1
         num_of_user_requests += 1
-
-        # 300 requests/15 minutes
-        if num_of_user_requests % 10 == 0:
-            logging.info('Max endpoint hits for users have been reached. Sleeping for {:.2f} minutes'.format((200/60)))
-            time.sleep(200)
 
 
         if tweets.get('meta').get('result_count') == 0:
@@ -87,8 +85,6 @@ def extract():
         except BaseException as err:
             logging.exception(err)
             return None
-
-        time.sleep(randrange(2, 5))
 
 
         # Get more tweets if possible
@@ -124,6 +120,8 @@ def extract():
                 continue 
 
             break
+
+
 
     
     return True
