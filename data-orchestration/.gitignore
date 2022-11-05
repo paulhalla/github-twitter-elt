@@ -14,3 +14,4 @@ airflow.db
 standalone_admin_password.txt
 webserver_config.py
 connections.json
+snow_flake_rashid_pass

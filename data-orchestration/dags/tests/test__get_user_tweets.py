@@ -69,6 +69,7 @@ class TestGetTweets:
         s3object.put(
             Body=(bytes(json.dumps(tweets).encode('UTF-8')))
         )
+
         
         # data_df = pd.json_normalize(tweets.get('data'))
         # meta_data = pd.json_normalize(tweets.get('meta'))
