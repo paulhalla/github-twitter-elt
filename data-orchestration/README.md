@@ -1,5 +1,13 @@
 <br/>
 
+# Helpful References
+
+<blockquote style='font-size:2.5rem'>Think of <b>Idempotence</b> in the design of your DAGS </blockquote>
+
+*Heng Ji*
+
+<br/>
+
 # Setting up Airflow on an EC2 instance
 
 1. Provision a t2.medium EC2 instance with a Ubuntu image.
@@ -8,12 +16,51 @@
 4. Follow [this](https://docs.docker.com/engine/install/ubuntu/) to learn how to install docker.
 5. Learn how to install `docker-compose` [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 6. [Install](https://github.com/git-guides/install-git)  git to pull the repo.
-7. Navigate to the project (`dec-project-2/data-orchestration`) and run `sudo docker-compose up -d` to start all the airflow services.
+7. [Run Airflow with `docker-compose`](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html)
+8. Navigate to the project (`dec-project-2/data-orchestration`) and run `sudo docker-compose up -d` to start all the airflow services.
 
 
 <br/>
 
-# Dockefile that installs DBT in a virtual environment r
+# Airflow fundamental concepts
+- https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html
+
+<br/>
+
+# Pipeline development workflow
+
+## Running recent changes
+- Pull recent changes from [main](https://github.com/paulhalla/dec-project-2)
+- Do not run the DAG locally. (Open to ideas)
+
+## Push changes
+- Make your task changes.
+- Test your task changes. You can run your dag on a standalone server
+
+	```bash 
+	docker run -p 8070:8080 -v /$(pwd):/opt/airflow --env-file .env  extended-airflow standalone
+	```
+
+	`exec` into the running container and run a test.
+
+	```bash 
+	docker exec -it container-name bash;
+
+	airflow dags test dag-id [run_date]
+	```
+- Submit your task changes and tests for review (add screenshots if necessary)
+- Get a reviewer to merge your changes.
+
+<br/>
+
+
+# How to structure DBT Projects
+- [Why does structure matter?](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview)
+
+
+<br/>
+
+# Dockerfile that installs DBT in a virtual environment 
 
 ```dockerfile
 
@@ -55,4 +102,32 @@ dbt_build = BaseOperator(
   ")
 ```
 
+<br/>
+
+
+# Introduction to Snowpipe 
+
+- [Introduction to Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro.html)
+- [Automating Snowpipe for Amazon S3](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-auto-s3.html)
+- [Overview of the Snowpipe REST Endpoints to Load Data](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-rest-overview.html)
+- [Loading data using the Snowpipe REST API](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-rest-load.html#sample-program-for-the-python-sdk)
+- [Preparing to Load Data using Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-rest-gs.html#using-key-pair-authentication-key-rotation)
+
+<br/>
+
+# Installation of AWS CLI and Configuration basics
+- [Configuration Basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+- [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+<br/>
+
+# Proof of concept
+
+- Use *slack* to communicate the status of dag runs.
+- Use airflow to buid `dbt` models.
+- Use airflow to trigger airbyte syncs (github data)
+- Use the snowflake operator to reload new `json` files from `s3`. 
+- How can we improve monitoring?
+
+<br/>
 

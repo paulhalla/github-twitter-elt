@@ -1,0 +1,10 @@
+s3:
+  bucket_name: 'decbrismoh-snowflake'
+  users_folder: 'dec-project-2/users'
+  tweets_folder: 'dec-project-2/tweets'
+twitter_handles:
+  location: '/opt/airflow/dags/user_data/users.txt'
+tweet_period_config:
+  start_time: '2012-01-01T00:00:00Z'
+  end_time: '2022-11-03T23:59:00Z'
+  max_results: 100

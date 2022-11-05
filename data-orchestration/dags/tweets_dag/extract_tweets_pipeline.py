@@ -1,112 +1,63 @@
-from src.get_user import create_url_user, get_user_details 
-from src.get_tweets_by_user import create_url_tweets, get_user_tweets
 from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
+from airflow.utils.trigger_rule import TriggerRule
+from airflow.exceptions import AirflowException
 from airflow.decorators import task
-from auth.auth import BearerTokenAuth
-import boto3
-import yaml
-import pandas as pd
-import logging
-import json
+from tweets_dag.tasks.extract_tweets import extract
 import pendulum
 
+
+
+@task(trigger_rule=TriggerRule.ONE_FAILED)
+def watcher():
+    raise AirflowException("Failing tasks because an upstream task failed")
 
 
 with DAG(
     'extract_tweets',
     description='Extract tweets from Twitter',
-    schedule=None,
+    schedule='@daily',
     start_date=pendulum.datetime(2021, 1, 1, tz='UTC'),
     catchup=False,
     tags=['extraction']
 ) as dag:
 
-    @dag.task(task_id='extract')
-    def extract():
-        
+    # el_start = SlackWebhookOperator(
+    #     task_id='twitter_extracts_start',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts started',
+    #     channel='#project2-group3'
+    # )
 
-        with open('/opt/airflow/dags/tweets_dag/config.yaml', 'r') as file:
-            config = yaml.safe_load(file)
+    # el_fail_watcher = SlackWebhookOperator(
+    #     task_id='twitter_extracts_fail',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts failed',
+    #     channel='#project2-group3',
+    #     trigger_rule=TriggerRule.ONE_FAILED
+    # )
 
-        # s3 bucket 
-        s3 = boto3.resource('s3')
-        bucket_name = 'decbrismoh-snowflake'
-        folder = 'dec-project-2'
+    # el_end = SlackWebhookOperator(
+    #     task_id='twitter_extracts_end',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts ended',
+    #     channel='#project2-group3'
+    # )
 
-        
-        # set up logging
-        logging.basicConfig(level=logging.INFO, format="[%(levelname)s][%(asctime)s]: %(message)s")
+    extract_tweets = PythonOperator(
+        task_id='extract_tweets',
+        python_callable=extract
+    )
 
+    # el_start >> extract_tweets >> el_end
 
-        # Twitter handles of data influencers
-        with open('/opt/airflow/dags/tweets_dag/user_data/users.txt', 'r') as file:
-
-            user_handles = file.readlines()
-            cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
-
-
-
-        for user in cleaned_handles:
-
-            logging.info(f'Getting tweets for {user}')
-            
-            user_url = create_url_user(user_name=user)
-            user_id = get_user_details(user_url).get('data')[0].get('id')
-
-            tweet_url = create_url_tweets(user_id)
-
-            # get some tweets
-            tweets = get_user_tweets(tweet_url, params=config)
-
-            if tweets.get('meta').get('result_count') == 0:
-                logging.info(f'{user} has no tweets between {config.get("start_time")} and {config.get("end_time")}')
-                continue
-
-
-            # Save records
-            try:
-                s3object = s3.Object(bucket_name, f'{folder}/{user}.json')
-                s3object.put(
-                    Body=(bytes(json.dumps(tweets).encode('UTF-8')))
-                )
-                logging.info(f'Successfully saved tweets for user: {user} at {bucket_name}')
-
-            
-            except BaseException as err:
-                logging.exception(err)
-                return None
-
-
-            # Get more tweets if possible
-            while True:
-
-                if tweets.get('meta').get('next_token'):
-
-                    config['pagination_token'] = tweets.get('meta').get('next_token')
-                    tweets = get_user_tweets(tweet_url, params=config)
-
-                    # Save records
-                    try:
-                        s3object = s3.Object(bucket_name, f'{folder}/{user}-{config.get("pagination_token")[:3]}.json')
-                        s3object.put(
-                            Body=(bytes(json.dumps(tweets).encode('utf-8')))
-                        )
-                    
-                    except BaseException as err:
-                        logging.exception(err)
-                        return None
-
-                    logging.info(f'Successfully saved tweets from next page for user: {user} at {bucket_name}')
-                    continue 
-
-                break
-
-        
-        return True
+    # task_list = dag.tasks 
+    # task_list.remove(el_fail_watcher)
+    # task_list >> el_fail_watcher >> watcher()
 
 
 
-    extract()
 
 
 
