@@ -43,15 +43,15 @@ class TestGetTweets:
 
     def test__get_user_tweets(self):
         
-        user_name = 'TwitterDev'
+        user_name = 'marcosluis2186'
         user_url = create_url_user(user_name=user_name)
         user_id = get_user_details(user_url).get('data')[0].get('id')
 
         # use pagination to get all tests over a period
         # reference: https://developer.twitter.com/en/docs/twitter-api/pagination
         params = {
-            'start_time': '2019-01-01T00:00:00Z',
-            'end_time': '2020-01-10T23:59:00Z',
+            'start_time': '2012-01-01T00:00:00Z',
+            'end_time': '2022-11-03T23:59:00Z',
             'max_results': 100,
             'pagination_token': None
         }
@@ -69,6 +69,8 @@ class TestGetTweets:
         s3object.put(
             Body=(bytes(json.dumps(tweets).encode('UTF-8')))
         )
+
+        print(get_user_details(user_url))
 
         
         # data_df = pd.json_normalize(tweets.get('data'))
@@ -104,5 +106,5 @@ class TestGetTweets:
 
             break
 
-        assert tweets is not None
+        assert tweets is None
 

@@ -23,38 +23,38 @@ with DAG(
     tags=['extraction']
 ) as dag:
 
-    el_start = SlackWebhookOperator(
-        task_id='twitter_extracts_start',
-        http_conn_id='slack_dec',
-        message='Twitter extracts started',
-        channel='#project2-group3'
-    )
+    # el_start = SlackWebhookOperator(
+    #     task_id='twitter_extracts_start',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts started',
+    #     channel='#project2-group3'
+    # )
 
-    el_fail_watcher = SlackWebhookOperator(
-        task_id='twitter_extracts_fail',
-        http_conn_id='slack_dec',
-        message='Twitter extracts failed',
-        channel='#project2-group3',
-        trigger_rule=TriggerRule.ONE_FAILED
-    )
+    # el_fail_watcher = SlackWebhookOperator(
+    #     task_id='twitter_extracts_fail',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts failed',
+    #     channel='#project2-group3',
+    #     trigger_rule=TriggerRule.ONE_FAILED
+    # )
 
-    el_end = SlackWebhookOperator(
-        task_id='twitter_extracts_end',
-        http_conn_id='slack_dec',
-        message='Twitter extracts ended',
-        channel='#project2-group3'
-    )
+    # el_end = SlackWebhookOperator(
+    #     task_id='twitter_extracts_end',
+    #     http_conn_id='slack_dec',
+    #     message='Twitter extracts ended',
+    #     channel='#project2-group3'
+    # )
 
     extract_tweets = PythonOperator(
         task_id='extract_tweets',
         python_callable=extract
     )
 
-    el_start >> extract_tweets >> el_end
+    # el_start >> extract_tweets >> el_end
 
-    task_list = dag.tasks 
-    task_list.remove(el_fail_watcher)
-    task_list >> el_fail_watcher >> watcher()
+    # task_list = dag.tasks 
+    # task_list.remove(el_fail_watcher)
+    # task_list >> el_fail_watcher >> watcher()
 
 
 
