@@ -43,7 +43,7 @@ class TestGetTweets:
 
     def test__get_user_tweets(self):
         
-        user_name = 'marcosluis2186'
+        user_name = 'DataScienceHarp'
         user_url = create_url_user(user_name=user_name)
         user_id = get_user_details(user_url).get('data')[0].get('id')
 
@@ -51,7 +51,7 @@ class TestGetTweets:
         # reference: https://developer.twitter.com/en/docs/twitter-api/pagination
         params = {
             'start_time': '2012-01-01T00:00:00Z',
-            'end_time': '2012-01-02T00:00:00Z',
+            'end_time': '2022-01-02T00:00:00Z',
             'max_results': 100,
             'pagination_token': None
         }
