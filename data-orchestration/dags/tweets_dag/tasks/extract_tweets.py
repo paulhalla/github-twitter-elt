@@ -29,17 +29,28 @@ def extract():
     twitter_handles_location = config.get('twitter_handles').get('location')
     with open(twitter_handles_location, 'r') as file:
         user_handles = file.readlines()
-        cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
+        existing_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
 
+    
+    # Saved handles (saved in s3)
+    s3_bucket = s3.Bucket(bucket_name)
+    objs_in_users_folder = s3_bucket.objects.filter(Prefix=f'{users_folder}/')
+    saved_handles = [handle.key.replace(f'{users_folder}/', '')
+                    .replace('.json', '') 
+                    .replace('/', '')
+                    for handle in objs_in_users_folder if '.json' in handle.key
+                    ]
 
     # keep track of requests
     num_of_tweet_requests = 0
     num_of_user_requests = 0
 
 
-    for user in cleaned_handles[:10]:
+    for user in existing_handles:
 
-        time.sleep(randrange(2, 5))
+        if user in saved_handles or user == '':
+            logging.info(f'Skipping user because {user}.json exists')
+            continue
 
         users3Object = s3.Object(bucket_name, f'{users_folder}/{user}.json')
         tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}.json')
@@ -58,11 +69,6 @@ def extract():
         # increment requests 
         num_of_tweet_requests += 1
         num_of_user_requests += 1
-
-        # 300 requests/15 minutes
-        if num_of_user_requests % 10 == 0:
-            logging.info(f'Max endpoint hits for users have been reached. Sleeping for 15 minutes')
-            time.sleep(10)
 
 
         if tweets.get('meta').get('result_count') == 0:
@@ -88,15 +94,12 @@ def extract():
             logging.exception(err)
             return None
 
-        time.sleep(randrange(2, 5))
-
 
         # Get more tweets if possible
         while True:
 
-            # 900 requests/15 minutes
             if num_of_tweet_requests % 70 == 0:
-                logging.info(f'Max endpoint hits for tweets have been reached. Sleeping for 15 minutes')
+                logging.info('Max endpoint hits for tweets have been reached. Sleeping for {:.2f} minutes'.format((200/60)))
                 time.sleep(200)
 
             if tweets.get('meta').get('next_token'):
