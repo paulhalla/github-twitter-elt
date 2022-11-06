@@ -1,4 +1,4 @@
-FROM apache/airflow:2.4.0
+FROM apache/airflow:2.4.2
 
 RUN pip install --no-cache-dir apache-airflow-providers-slack
 RUN pip install --no-cache-dir apache-airflow-providers-airbyte
