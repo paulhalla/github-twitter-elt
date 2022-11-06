@@ -29,20 +29,28 @@ def extract():
     twitter_handles_location = config.get('twitter_handles').get('location')
     with open(twitter_handles_location, 'r') as file:
         user_handles = file.readlines()
-        cleaned_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
+        existing_handles = [user.split('.com/')[-1].strip().replace('/','') for user in user_handles]
 
+    
+    # Saved handles (saved in s3)
+    s3_bucket = s3.Bucket(bucket_name)
+    objs_in_users_folder = s3_bucket.objects.filter(Prefix=f'{users_folder}/')
+    saved_handles = [handle.key.replace(f'{users_folder}/', '')
+                    .replace('.json', '') 
+                    .replace('/', '')
+                    for handle in objs_in_users_folder if '.json' in handle.key
+                    ]
 
     # keep track of requests
     num_of_tweet_requests = 0
     num_of_user_requests = 0
 
 
-    for user in cleaned_handles:
+    for user in existing_handles:
 
-        if num_of_user_requests == 5:
-            # process 5 users per day
-            logging.info('Max endpoint hits for users have been reached. Sleeping for {:.2f} hours'.format((86400/3600)))
-            time.sleep(86400)
+        if user in saved_handles or user == '':
+            logging.info(f'Skipping user because {user}.json exists')
+            continue
 
         users3Object = s3.Object(bucket_name, f'{users_folder}/{user}.json')
         tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}.json')
@@ -90,7 +98,6 @@ def extract():
         # Get more tweets if possible
         while True:
 
-            # 900 requests/15 minutes
             if num_of_tweet_requests % 70 == 0:
                 logging.info('Max endpoint hits for tweets have been reached. Sleeping for {:.2f} minutes'.format((200/60)))
                 time.sleep(200)
@@ -120,8 +127,6 @@ def extract():
                 continue 
 
             break
-
-
 
     
     return True

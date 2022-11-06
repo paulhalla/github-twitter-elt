@@ -121,13 +121,31 @@ dbt_build = BaseOperator(
 
 <br/>
 
-# Proof of concept
 
-- Use *slack* to communicate the status of dag runs.
-- Use airflow to buid `dbt` models.
-- Use airflow to trigger airbyte syncs (github data)
-- Use the snowflake operator to reload new `json` files from `s3`. 
-- How can we improve monitoring?
+# Configs
+## Start airbyte when the ec2 instance is rebooted
 
+`$HOME/start_up/start_up.sh`
+
+```bash
+
+#!/bin/bash 
+
+# start the docker service 
+sudo service docker start 
+
+# run docker-compose in the background 
+cd $HOME/airbyte
+docker-compose up -d
+
+```
+
+
+`crontab`
+```bash 
+@reboot sh $HOME/start_up/start_up.sh
+```
 <br/>
 
+## Pull recent changes from the main branch 
+Same as above.
