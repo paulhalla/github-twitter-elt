@@ -50,7 +50,7 @@ class TestGetTweets:
         # use pagination to get all tests over a period
         # reference: https://developer.twitter.com/en/docs/twitter-api/pagination
         params = {
-            'start_time': '2012-01-01T00:00:00Z',
+            'start_time': '2022-01-01T00:00:00Z',
             'end_time': '2022-01-02T00:00:00Z',
             'max_results': 100,
             'pagination_token': None
