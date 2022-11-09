@@ -7,10 +7,15 @@ jobs:
   continuous-integration:
     runs-on: ubuntu-latest
     steps:
-      # Step 1
       - uses: actions/checkout@v3
         with:
           ref: rashid
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies 
+        run: pip install -r requirements.txt
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
