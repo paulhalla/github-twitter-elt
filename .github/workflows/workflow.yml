@@ -17,6 +17,10 @@ jobs:
           aws-access-key-id:${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key:${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region:us-east-1
+      - name: Set PythonPath
+        run: export PYTHONPATH=/home/ec2-user/dec-project-2/data-orchestration/dags
+      - name: Testing Tweet Extraction
+        run: pytest data-orchestration/dags
 
   continuous-deployment:
     runs-on: ubuntu-latest
