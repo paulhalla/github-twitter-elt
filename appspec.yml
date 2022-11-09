@@ -2,9 +2,4 @@ version: 0.0
 os: linux
 files:
  - source: ./data-orchestration
-   destination: /home/ec2-user/dec-project-2
-hooks:
-  AfterInstall:
-   - location: scripts/pull
-     timeout: 300
-     runas: root
+   destination: /home/ec2-user/
