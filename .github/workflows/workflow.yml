@@ -25,7 +25,7 @@ jobs:
       - name: Set PythonPath
         run: echo "PYTHONPATH=data-orchestration/dags" >> $GITHUB_ENV
       - name: Testing Tweet Extraction
-        run: pytest data-orchestration/dags/test.py 
+        run: pytest data-orchestration/dags/tests/test.py 
 
   continuous-deployment:
     runs-on: ubuntu-latest
