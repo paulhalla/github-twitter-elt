@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
- - source: .
+ - source: ./data-orchestration
    destination: /home/ec2-user/dec-project-2
 hooks:
   AfterInstall:
