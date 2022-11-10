@@ -1,6 +1,8 @@
 version: 2
 sources:
   - name: public
+    database: airbyte_database
+    schema: public
     tables:
       - name: raw_tweets_full
         description: ''
