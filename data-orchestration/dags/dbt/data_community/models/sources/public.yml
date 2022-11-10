@@ -1,0 +1,17 @@
+version: 2
+sources:
+  - name: public
+    tables:
+      - name: raw_tweets_full
+        description: ''
+        tests: null
+        columns:
+          - name: username
+            description: ''
+            tests: null
+          - name: data
+            description: ''
+            tests: null
+          - name: metadata
+            description: ''
+            tests: null
