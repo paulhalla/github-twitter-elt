@@ -50,3 +50,7 @@
 
 	```
 
+<br/>
+
+# How to structure DBT projects
+- https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview
