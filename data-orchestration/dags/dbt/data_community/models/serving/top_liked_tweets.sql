@@ -1,11 +1,6 @@
-with top_liked_tweets as
-(
-    select
-        username,
-        tweet,
-        max(number_of_likes)
-    from
-    {{ ref('stg_tweets') }}
-    GROUP BY username) 
-
-SELECT * FROM   top_liked_tweets
+select 
+    username,
+    text,
+    number_of_likes
+from airbyte_database.model.stg_tweets
+qualify row_number() over(partition by username order by number_of_likes desc) = 1;
