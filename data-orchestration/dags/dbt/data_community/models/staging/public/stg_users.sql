@@ -8,7 +8,7 @@ with source_data as (
         description as user_description,
         created_at,
         verified
-    from {{ source('public', 'raw_twitter_users')}}
+    from {{ source('public', 'raw_twitter_users') }}
 )
 
 select *
