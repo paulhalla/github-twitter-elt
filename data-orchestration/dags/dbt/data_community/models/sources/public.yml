@@ -8,7 +8,6 @@ sources:
           - name: username
             description: 'Username of the Twitter user'
             tests: 
-              - unique
               - not_null
           - name: data
             description: 'Tweets and data conerning the tweets'
@@ -48,4 +47,4 @@ sources:
             description: 'Shows whether the Twitter user was verified or not'
             tests:
               - accepted_values:
-                  values: [true, false]
+                  values: ['true', 'false']
