@@ -45,7 +45,7 @@ with DAG(
     )
 
     airbyte_conn_id = 'airbyte-connection'
-    airbyte_ghsf_conn_id = '14194ac5-e816-4225-9882-c1677566780f'
+    airbyte_ghsf_conn_id = '55eaa98b-1b47-4213-9d1a-e76dbd1de87a'
     trigger_sync = AirbyteTriggerSyncOperator(
         task_id='trigger_sync',
         airbyte_conn_id=airbyte_conn_id,
