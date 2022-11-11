@@ -1,0 +1,5 @@
+version: 0.0
+os: linux
+files:
+ - source: ./data-orchestration
+   destination: /home/ec2-user/
