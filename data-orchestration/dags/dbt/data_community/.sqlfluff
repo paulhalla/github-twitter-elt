@@ -2,9 +2,6 @@
 templater = dbt
 dialect = snowflake
 
-[sqlfluff:rules]
-comma_style = trailing
-
 [sqlfluff:rules:L010]
 capitalisation_policy = lower
 
