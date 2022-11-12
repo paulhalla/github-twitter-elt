@@ -17,8 +17,8 @@ def watcher():
 with DAG(
     'extract_tweets',
     description='Extract tweets from Twitter',
-    schedule='@daily',
-    start_date=pendulum.datetime(2021, 1, 1, tz='UTC'),
+    schedule='0 */2 * * *',
+    start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
     tags=['extraction']
 ) as dag:
