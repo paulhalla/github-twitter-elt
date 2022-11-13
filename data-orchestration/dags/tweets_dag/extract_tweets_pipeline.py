@@ -1,11 +1,14 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.utils.trigger_rule import TriggerRule
 from airflow.exceptions import AirflowException
 from airflow.decorators import task
+from airflow.models import Variable
 from tweets_dag.tasks.extract_tweets import extract
 import pendulum
+import json
 
 
 
@@ -50,10 +53,28 @@ with DAG(
         python_callable=extract
     )
 
+    # dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
+
+    # dbt_version = BashOperator(
+    #     task_id='dbt_version',
+    #     bash_command='/usr/local/airflow/dbt_env/bin/dbt --version',
+    #     env=dbt_env_json
+    # )
+
+    # dbt_build = BashOperator(
+    #     task_id='dbt_build',
+    #     env=dbt_env_json,
+    #     bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh '
+    # )
+
+    # dbt_version >> dbt_build
+
     el_start >> extract_tweets >> el_end >> el_fail_watcher
 
     task_list = dag.tasks 
     task_list >> watcher()
+
+
 
 
 
