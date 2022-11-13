@@ -1,6 +1,6 @@
 from utilities.get_user import create_url_user, get_user_details 
 from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
-from random import randrange
+from random import randrange, randint
 import boto3
 import yaml
 import logging
@@ -45,12 +45,20 @@ def extract():
     num_of_tweet_requests = 0
     num_of_user_requests = 0
 
+    # Select handles in batches of 3
+    if config.get('twitter_handles').get('batch_handling') == True:
+        number_of_batches = config.get('twitter_handles').get('number_of_batches')
+        random_start = randint(0, (len(existing_handles) - number_of_batches - 1))
+        random_end = random_start + number_of_batches
+        existing_handles = existing_handles[random_start:random_end]
+
 
     for user in existing_handles:
 
-        if user in saved_handles or user == '':
-            logging.info(f'Skipping user because {user}.json exists')
-            continue
+        if config.get('twitter_handles').get('batch_handling') == False:
+            if user in saved_handles:
+                logging.info(f'Skipping user because {user}.json exists')
+                continue
 
         users3Object = s3.Object(bucket_name, f'{users_folder}/{user}.json')
         tweets3Object = s3.Object(bucket_name, f'{tweets_folder}/{user}.json')
@@ -130,11 +138,5 @@ def extract():
 
     
     return True
-
-
-
-
-
-
 
 
