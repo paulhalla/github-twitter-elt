@@ -4,6 +4,8 @@ s3:
   tweets_folder: 'dec-project-2/tweets'
 twitter_handles:
   location: '/opt/airflow/dags/user_data/users.txt'
+  batch_handling: True
+  number_of_batches: 3
 tweet_period_config:
   start_time: '2012-01-01T00:00:00Z'
   end_time: '2022-11-04T00:00:00Z'
