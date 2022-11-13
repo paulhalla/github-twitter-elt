@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: _airbyte_raw_organizations
+    columns:
+      - name: airbyte_ab_id
+      - name: airbyte_data
+      - name: airbyte_emitted_at

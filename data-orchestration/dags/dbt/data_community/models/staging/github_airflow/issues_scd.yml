@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: issues_scd
+    columns:
+      - name: airbyte_unique_key
+      - name: airbyte_unique_key_scd
+      - name: id
+      - name: url
+      - name: body
+      - name: user
+      - name: state
+      - name: title
+      - name: labels
+      - name: locked
+      - name: number
+      - name: node_id
+      - name: user_id
+      - name: assignee
+      - name: comments
+      - name: html_url
+      - name: assignees
+      - name: closed_at
+      - name: milestone
+      - name: created_at
+      - name: events_url
+      - name: labels_url
+      - name: repository
+      - name: updated_at
+      - name: comments_url
+      - name: pull_request
+      - name: repository_url
+      - name: active_lock_reason
+      - name: author_association
+      - name: airbyte_start_at
+      - name: airbyte_end_at
+      - name: airbyte_active_row
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_issues_hashid
