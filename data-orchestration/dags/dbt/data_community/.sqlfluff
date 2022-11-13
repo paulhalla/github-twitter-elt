@@ -1,0 +1,9 @@
+[sqlfluff]
+templater = dbt
+dialect = snowflake
+
+[sqlfluff:rules:L010]
+capitalisation_policy = lower
+
+[sqlfluff:rules:L030]
+capitalisation_policy = lower
