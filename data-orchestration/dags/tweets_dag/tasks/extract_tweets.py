@@ -1,14 +1,14 @@
-from utilities.get_user import create_url_user, get_user_details 
-from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
-from random import randrange, randint
-import boto3
-import yaml
-import logging
-import json
-import time
-
 
 def extract():
+
+    from utilities.get_user import create_url_user, get_user_details 
+    from utilities.get_tweets_by_user import create_url_tweets, get_user_tweets
+    from random import randrange, randint
+    import boto3
+    import yaml
+    import logging
+    import json
+    import time
 
     with open('/opt/airflow/dags/tweets_dag/tasks/config.yaml', 'r') as file:
         config = yaml.safe_load(file)

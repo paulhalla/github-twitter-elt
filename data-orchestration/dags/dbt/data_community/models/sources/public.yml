@@ -3,6 +3,10 @@ sources:
   - name: public
     database: airbyte_database
     schema: public
+    # freshness: 
+    #   warn_after: {count: 2, period: hour}
+    #   error_after: {count: 4, period: hour}
+    #   loaded_at_field: 
     tables:
       - name: raw_tweets_full
         description: 'The full list of tweets from the specified users'
@@ -13,10 +17,12 @@ sources:
               - not_null
           - name: data
             description: 'Tweets and data conerning the tweets'
-            tests: null
+            tests: 
+              - not_null
           - name: metadata
             description: 'Information on the ingested batch'
-            tests: null
+            tests: 
+              - not_null
       - name: raw_twitter_users
         description: 'The list of users whose tweets have been extracted'
         columns:

@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
+from airflow.operators.bash import BashOperator
 from airflow.utils.trigger_rule import TriggerRule
 from airflow.exceptions import AirflowException
 from airflow.decorators import task
@@ -54,6 +55,8 @@ with DAG(
         timeout=3600,
         wait_seconds=3
     )
+
+    # build some models
 
 
     el_start >> trigger_sync >> el_end >> el_fail_watcher

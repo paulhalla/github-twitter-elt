@@ -6,9 +6,8 @@ from airflow.utils.trigger_rule import TriggerRule
 from airflow.exceptions import AirflowException
 from airflow.decorators import task
 from airflow.models import Variable
-from tweets_dag.tasks.extract_tweets import extract
+from dbt_docs_dag.tasks.push_docs import push_docs
 import pendulum
-import json
 
 
 
@@ -17,71 +16,53 @@ def watcher():
     raise AirflowException("Failing tasks because an upstream task failed")
 
 
+# Decide on a good frequency
 with DAG(
-    'extract_tweets',
+    'serve_docs',
     description='Extract tweets from Twitter',
     schedule='0 */2 * * *',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
-    tags=['extraction']
+    tags=['transformation']
 ) as dag:
 
     el_start = SlackWebhookOperator(
-        task_id='twitter_extracts_start',
+        task_id='docs_update_started',
         http_conn_id='slack_dec',
-        message='Twitter extracts started',
+        message='Updating dbt docs',
         channel='#project2-group3'
     )
 
     el_fail_watcher = SlackWebhookOperator(
-        task_id='twitter_extracts_fail',
+        task_id='docs_update_failed',
         http_conn_id='slack_dec',
-        message='Twitter extracts failed',
+        message='Dbt docs update failed',
         channel='#project2-group3',
         trigger_rule=TriggerRule.ONE_FAILED
     )
 
     el_end = SlackWebhookOperator(
-        task_id='twitter_extracts_end',
+        task_id='docs_update_succeeded',
         http_conn_id='slack_dec',
-        message='Twitter extracts ended',
+        message='Dbt docs update succeeded',
         channel='#project2-group3'
     )
 
-    extract_tweets = PythonOperator(
-        task_id='extract_tweets',
-        python_callable=extract
+    push_docs_to_s3 = PythonOperator(
+        task_id='push_docs_to_s3',
+        python_callable=push_docs
     )
 
     dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
 
-
-    # check source freshness
-    dbt_freshness = BashOperator(
-        task_id='dbt_freshness',
-        bash_command="/opt/airflow/dags/tweets_dag/scripts/check_source_freshness.sh "
+    dbt_docs_generate = BashOperator(
+        task_id='dbt_version',
+        bash_command="/opt/airflow/dags/dbt_docs_dag/scripts/generate_docs.sh "
     )
 
-    dbt_build = BashOperator(
-        task_id='dbt_build',
-        env=dbt_env_json,
-        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh ',
-        trigger_rule=TriggerRule.NONE_FAILED
-    )
+    # dbt_docs_generate >> push_docs_to_s3
 
-    el_start >> extract_tweets >> dbt_freshness >> dbt_build >> el_end >> el_fail_watcher
+    el_start >> dbt_docs_generate >> push_docs_to_s3 >> el_end >> el_fail_watcher
 
     task_list = dag.tasks 
     task_list >> watcher()
-
-
-
-
-
-
-
-
-
-
-
-
