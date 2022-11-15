@@ -1,10 +1,3 @@
-{{
-  config(
-    materialized = "table",
-    schema = 'public'
-  )
-}}
-
 with loaded_at as (
   select * 
   from {{ ref('base_public__raw_users_loaded_at') }}

@@ -1,10 +1,3 @@
-{{
-  config(
-    materialized = "table",
-    schema = 'public'
-  )
-}}
-
 with load_times as (
     select * 
     from {{ ref('base_public__raw_tweets_loaded_at') }}

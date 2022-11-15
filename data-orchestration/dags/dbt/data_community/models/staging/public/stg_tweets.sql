@@ -1,6 +1,6 @@
 with source as (
     select * 
-    from {{ source('public', 'stg_public__tweets') }}
+    from {{ source('public', 'serving_tweets') }}
 )
 
 select * from source

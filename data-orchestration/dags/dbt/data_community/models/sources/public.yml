@@ -8,7 +8,7 @@ sources:
       error_after: {count: 4, period: hour}
     loaded_at_field: last_load_time
     tables:
-      - name: stg_public__tweets
+      - name: serving_tweets
         description: 'The full list of tweets with loaded times from the specified users'
         columns:
           - name: username
@@ -23,7 +23,7 @@ sources:
             description: 'Information on the ingested batch'
             tests: 
               - not_null
-      - name: stg_public__users
+      - name: serving_twitter_users
         description: 'The list of users with loaded times whose tweets have been extracted'
         columns:
           - name: username

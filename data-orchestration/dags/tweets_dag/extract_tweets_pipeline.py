@@ -6,6 +6,7 @@ from airflow.utils.trigger_rule import TriggerRule
 from airflow.exceptions import AirflowException
 from airflow.decorators import task
 from airflow.models import Variable
+from airflow.operators.empty import EmptyOperator
 from tweets_dag.tasks.extract_tweets import extract
 import pendulum
 import json
@@ -36,7 +37,7 @@ with DAG(
     el_fail_watcher = SlackWebhookOperator(
         task_id='twitter_extracts_fail',
         http_conn_id='slack_dec',
-        message='Twitter extracts failed',
+        message='An upstream task failed. View logs',
         channel='#project2-group3',
         trigger_rule=TriggerRule.ONE_FAILED
     )
@@ -62,17 +63,27 @@ with DAG(
         bash_command="/opt/airflow/dags/tweets_dag/scripts/check_source_freshness.sh "
     )
 
-    dbt_build = BashOperator(
-        task_id='dbt_build',
+    twitter_dbt_run_prior = BashOperator(
+        task_id='build_input_tweet_tables',
         env=dbt_env_json,
-        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh ',
-        trigger_rule=TriggerRule.NONE_FAILED
+        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_input_tweets.sh ',
+        trigger_rule=TriggerRule.ALL_DONE
     )
 
-    el_start >> extract_tweets >> dbt_freshness >> dbt_build >> el_end >> el_fail_watcher
+    twitter_dbt_run = BashOperator(
+        task_id='twitter_dbt_run',
+        env=dbt_env_json,
+        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh ',
+        trigger_rule=TriggerRule.ONE_FAILED
+    )
 
-    task_list = dag.tasks 
-    task_list >> watcher()
+    el_start >> extract_tweets >> twitter_dbt_run_prior >> dbt_freshness >> twitter_dbt_run >> el_end >> el_fail_watcher
+
+
+
+
+
+
 
 
 
