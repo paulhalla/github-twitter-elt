@@ -1,0 +1,55 @@
+version: 2
+sources:
+  - name: public
+    database: airbyte_database
+    schema: public
+    tables:
+      - name: raw_tweets_full
+        description: 'The full list of tweets from the specified users'
+        columns:
+          - name: username
+            description: 'Username of the Twitter user'
+            tests: 
+              - not_null
+          - name: data
+            description: 'Tweets and data conerning the tweets'
+            tests: 
+              - not_null
+          - name: metadata
+            description: 'Information on the ingested batch'
+            tests: 
+              - not_null
+      - name: raw_twitter_users
+        description: 'The list of users whose tweets have been extracted'
+        columns:
+          - name: username
+            description: 'Username of the Twitter user'
+            tests: 
+              - unique
+              - not_null
+          - name: name
+            description: 'Full name of the Twitter user'
+            tests: null
+          - name: id
+            description: 'Twitter user id'
+            tests: 
+              - unique
+              - not_null
+          - name: public_metrics
+            description: 'Statistics on the twitter user (tweets, followers, etc)'
+            tests: null
+          - name: pinned_tweet_id
+            description: 'The Tweet ID of the pinned tweet (if any)'
+            tests: null
+          - name: description
+            description: 'Twitter user description'
+            tests: null
+          - name: created_at
+            description: 'Twitter user creation date'
+            tests: null
+          - name: verified
+            description: 'Shows whether the Twitter user was verified or not'
+            tests:
+              - accepted_values:
+                  values: ['true', 'false']
+
