@@ -3,25 +3,16 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.utils.trigger_rule import TriggerRule
-from airflow.exceptions import AirflowException
-from airflow.decorators import task
 from airflow.models import Variable
-from airflow.operators.empty import EmptyOperator
 from tweets_dag.tasks.extract_tweets import extract
 import pendulum
-import json
 
-
-
-@task(trigger_rule=TriggerRule.ONE_FAILED)
-def watcher():
-    raise AirflowException("Failing tasks because an upstream task failed")
 
 
 with DAG(
     'extract_tweets',
     description='Extract tweets from Twitter',
-    schedule='0 */2 * * *',
+    schedule='@daily',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
     tags=['extraction']

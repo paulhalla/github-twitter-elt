@@ -1,7 +1,6 @@
 from airflow import DAG
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
-from airflow.operators.bash import BashOperator
 from airflow.utils.trigger_rule import TriggerRule
 from airflow.exceptions import AirflowException
 from airflow.decorators import task
@@ -20,7 +19,7 @@ with DAG(
     schedule='@daily',
     start_date=pendulum.datetime(2021, 1, 1, tz='UTC'),
     catchup=False,
-    tags=['extraction']
+    tags=['extraction', 'transformation']
 ) as dag:
 
     el_start = SlackWebhookOperator(

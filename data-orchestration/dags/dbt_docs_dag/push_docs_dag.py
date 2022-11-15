@@ -20,10 +20,10 @@ def watcher():
 with DAG(
     'serve_docs',
     description='Extract tweets from Twitter',
-    schedule='0 */2 * * *',
+    schedule='@daily',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
-    tags=['transformation']
+    tags=['documentation']
 ) as dag:
 
     el_start = SlackWebhookOperator(
@@ -59,8 +59,6 @@ with DAG(
         task_id='dbt_version',
         bash_command="/opt/airflow/dags/dbt_docs_dag/scripts/generate_docs.sh "
     )
-
-    # dbt_docs_generate >> push_docs_to_s3
 
     el_start >> dbt_docs_generate >> push_docs_to_s3 >> el_end >> el_fail_watcher
 
