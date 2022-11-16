@@ -1,11 +1,30 @@
-{% macro source(name) -%}
-     {{name}} greatest of all time!
-{%- endmacro %}
+with raw_source as (
 
-{% set schema_names=('github_airflow', 'github_argo', 'github_dagster', 'github_luigi', 'github_orchest', 'github_prefect') %}
+    select *
+    from {{ source('github_airflow', 'branches_commit') }}
+
+),
+
+final as (
+
+    select
+        "_AIRBYTE_BRANCHES_HASHID"::VARCHAR as airbyte_branches_hashid,
+        "SHA"::VARCHAR as sha,
+        "URL"::VARCHAR as url,
+        "_AIRBYTE_AB_ID"::VARCHAR as airbyte_ab_id,
+        "_AIRBYTE_EMITTED_AT"::TIMESTAMP_TZ as airbyte_emitted_at,
+        "_AIRBYTE_NORMALIZED_AT"::TIMESTAMP_TZ as airbyte_normalized_at,
+        "_AIRBYTE_COMMIT_HASHID"::VARCHAR as airbyte_commit_hashid
+
+    from raw_source
+
+)
+
+select * from final
+
 
 with stg_branches as (
-    
+    {% set schema_names=('github_airflow', 'github_argo', 'github_dagster', 'github_luigi', 'github_orchest', 'github_prefect') %}
     {% for schema in schema_names %}
     select 
         "NAME"::VARCHAR as name,
@@ -18,11 +37,7 @@ with stg_branches as (
         -- "_AIRBYTE_EMITTED_AT"::TIMESTAMP_TZ as airbyte_emitted_at,  -- unnecessary column
         -- "_AIRBYTE_NORMALIZED_AT"::TIMESTAMP_TZ as airbyte_normalized_at,  -- unnecessary column
         -- "_AIRBYTE_BRANCHES_HASHID"::VARCHAR as airbyte_branches_hashid  -- unnecessary column
-    -- from {{ schema }}.branches
-
-    from {{ source(schema|string, 'branches') }}
-
-
+    from {{ schema }}.branches
     {% if not loop.last %}
 
     union all
