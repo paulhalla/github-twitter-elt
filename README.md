@@ -3,12 +3,18 @@
 <br/>
 
 | Todos                                  | Description                              | Responsible/Accountable
-|----------------------------------------|------------------------------------------|-------------------------
-| Add table of content                   |                                          |
-| Add badges                             |                                          |
-| Provide solution architecture          | Provide diagram of pipeline architecture |
-| Describe the flaws of the pipeline     |
-| Talk about improvements for the future | 
+|-------------------------------------------|------------------------------------------|-------------------------
+| Add table of content                             |                                           |
+| Add badges                                       |                                          |
+| Provide solution architecture                    | Provide diagram of pipeline architecture |
+| Describe the flaws of the pipeline               |
+| Talk about improvements for the future           |  
+| Describe the pipeline                            | 
+| Describe the dags                                |
+| Describe the transformation logic                |     
+| Describe any unconvetional logic/patterns        |
+| Talk about issues encountered during development |
+| Mention shortcuts (eg. cron instead of CI/CD)
 
 <br/>
 
