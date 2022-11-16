@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: branches_commit
+    schema: github_airflow
     columns:
       - name: airbyte_branches_hashid
       - name: sha

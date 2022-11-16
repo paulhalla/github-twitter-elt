@@ -1,14 +1,14 @@
 with raw_source as (
 
     select *
-    from {{ source('github_orchest', 'tags_commit') }}
+    from {{ source('github_airflow', 'branches_commit') }}
 
 ),
 
 final as (
 
     select
-        "_AIRBYTE_TAGS_HASHID"::VARCHAR as airbyte_tags_hashid,
+        "_AIRBYTE_BRANCHES_HASHID"::VARCHAR as airbyte_branches_hashid,
         "SHA"::VARCHAR as sha,
         "URL"::VARCHAR as url,
         "_AIRBYTE_AB_ID"::VARCHAR as airbyte_ab_id,
