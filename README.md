@@ -1,5 +1,17 @@
 # ELT Pipeline for Keyword Frequency and Sentiment Analysis
 
+<br/>
+
+| Todos                                  | Description                              | Responsible/Accountable
+|----------------------------------------|------------------------------------------|-------------------------
+| Add table of content                   |                                          |
+| Add badges                             |                                          |
+| Provide solution architecture          | Provide diagram of pipeline architecture |
+| Describe the flaws of the pipeline     |
+| Talk about improvements for the future | 
+
+<br/>
+
 # Introduction
 Keyword frequency is defined as how often a keyword appears in a given piece of text or content. It is considered in efforts such as Search Engine Optimsation (SEO) and digital marketing.
 Sentiment analysis refers a process that seeks to computationally categorise the opinion expressed in a piece of text to learn the writer's attitude towards a particular subject. Generally, categories considered are *positive*, *negative*, and *neutral*.
