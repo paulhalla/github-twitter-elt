@@ -29,7 +29,7 @@ The goal of the project was to design and a build a reliable data pipeline for t
 | Transformation and Quality Tests | Paul Hallaste
 
 
-<br/><br/>
+<br/>
 
 # Project Management 
 Project management - task assignment - was managed using Notion. Project meetings were held on a weekly basis to:
@@ -42,7 +42,7 @@ Project management - task assignment - was managed using Notion. Project meeting
 ## Kanban 
 <img src='assets/Kanban.png'/>
 
-<br/><br/>
+<br/>
 
 # Research Questions 
 ## Twitter data
@@ -58,7 +58,7 @@ Project management - task assignment - was managed using Notion. Project meeting
 4. Many contributors, few commits vs. few contributors, many commits?
 5. Location of users etc.
 
-<br/><br/>
+<br/>
 
 # Data Sources 
 Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. Github and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
@@ -74,7 +74,7 @@ We have extracted the tweets from various data influencers and people who are pa
 The dataset includes the Github repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
 
 
-<br/><br/>
+<br/>
 
 
 # Methodology 
@@ -94,7 +94,7 @@ Pipeline orchestration was performed with **Apache Airflow**. It was built by Ma
 
 
 
-<br/><br/>
+<br/>
 
 
 # Solution architecutre
@@ -102,11 +102,10 @@ TBD
 
 
 
-<br/><br/><br/><br/>
+<br/><br/>
 
 # Appendices 
 ## Appendix A
-<br/>
 
 ### GitHub REST API
 https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api
