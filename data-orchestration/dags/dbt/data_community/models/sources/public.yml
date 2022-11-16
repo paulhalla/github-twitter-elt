@@ -15,14 +15,6 @@ sources:
             description: 'Username of the Twitter user'
             tests: 
               - not_null
-          - name: data
-            description: 'Tweets and data conerning the tweets'
-            tests: 
-              - not_null
-          - name: metadata
-            description: 'Information on the ingested batch'
-            tests: 
-              - not_null
       - name: serving_twitter_users
         description: 'The list of users with loaded times whose tweets have been extracted'
         columns:
@@ -31,21 +23,15 @@ sources:
             tests: 
               - unique
               - not_null
-          - name: name
-            description: 'Full name of the Twitter user'
-            tests: null
-          - name: id
+          - name: user_id
             description: 'Twitter user id'
             tests: 
               - unique
               - not_null
-          - name: public_metrics
-            description: 'Statistics on the twitter user (tweets, followers, etc)'
-            tests: null
           - name: pinned_tweet_id
             description: 'The Tweet ID of the pinned tweet (if any)'
             tests: null
-          - name: description
+          - name: user_description
             description: 'Twitter user description'
             tests: null
           - name: created_at
