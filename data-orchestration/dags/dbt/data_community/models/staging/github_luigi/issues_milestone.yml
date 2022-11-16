@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: issues_milestone
+    columns:
+      - name: airbyte_issues_hashid
+      - name: id
+      - name: url
+      - name: state
+      - name: title
+      - name: due_on
+      - name: number
+      - name: creator
+      - name: node_id
+      - name: html_url
+      - name: closed_at
+      - name: created_at
+      - name: labels_url
+      - name: updated_at
+      - name: description
+      - name: open_issues
+      - name: closed_issues
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_milestone_hashid

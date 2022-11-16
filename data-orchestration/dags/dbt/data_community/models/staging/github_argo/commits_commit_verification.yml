@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: commits_commit_verification
+    columns:
+      - name: airbyte_commit_hashid
+      - name: reason
+      - name: payload
+      - name: verified
+      - name: signature
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_verification_hashid

@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: issue_labels
+    columns:
+      - name: id
+      - name: url
+      - name: name
+      - name: color
+      - name: default
+      - name: node_id
+      - name: repository
+      - name: description
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_issue_labels_hashid

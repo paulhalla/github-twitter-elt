@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: pull_requests_head
+    columns:
+      - name: airbyte_pull_requests_hashid
+      - name: ref
+      - name: sha
+      - name: label
+      - name: repo_id
+      - name: user_id
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_head_hashid

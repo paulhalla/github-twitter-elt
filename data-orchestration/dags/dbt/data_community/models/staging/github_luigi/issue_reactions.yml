@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: issue_reactions
+    columns:
+      - name: airbyte_unique_key
+      - name: id
+      - name: user
+      - name: content
+      - name: node_id
+      - name: created_at
+      - name: repository
+      - name: issue_number
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_issue_reactions_hashid

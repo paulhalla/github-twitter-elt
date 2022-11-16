@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: branches_protection
+    columns:
+      - name: airbyte_branches_hashid
+      - name: required_status_checks
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_protection_hashid

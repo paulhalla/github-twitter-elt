@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: commits_committer
+    columns:
+      - name: airbyte_commits_hashid
+      - name: id
+      - name: url
+      - name: type
+      - name: login
+      - name: node_id
+      - name: html_url
+      - name: gists_url
+      - name: repos_url
+      - name: avatar_url
+      - name: events_url
+      - name: site_admin
+      - name: gravatar_id
+      - name: starred_url
+      - name: followers_url
+      - name: following_url
+      - name: organizations_url
+      - name: subscriptions_url
+      - name: received_events_url
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_committer_hashid

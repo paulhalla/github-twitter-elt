@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: releases_assets
+    columns:
+      - name: airbyte_releases_hashid
+      - name: id
+      - name: url
+      - name: name
+      - name: size
+      - name: label
+      - name: state
+      - name: node_id
+      - name: created_at
+      - name: updated_at
+      - name: uploader_id
+      - name: content_type
+      - name: download_count
+      - name: browser_download_url
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_assets_hashid

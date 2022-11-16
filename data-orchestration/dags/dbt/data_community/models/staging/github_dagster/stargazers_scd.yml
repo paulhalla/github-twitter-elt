@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stargazers_scd
+    columns:
+      - name: airbyte_unique_key
+      - name: airbyte_unique_key_scd
+      - name: user
+      - name: user_id
+      - name: repository
+      - name: starred_at
+      - name: airbyte_start_at
+      - name: airbyte_end_at
+      - name: airbyte_active_row
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_stargazers_hashid

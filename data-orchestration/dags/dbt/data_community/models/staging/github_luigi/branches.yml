@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: branches
+    columns:
+      - name: name
+      - name: commit
+      - name: protected
+      - name: protection
+      - name: repository
+      - name: protection_url
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_branches_hashid

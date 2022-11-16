@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: repositories_license
+    columns:
+      - name: airbyte_repositories_hashid
+      - name: key
+      - name: url
+      - name: name
+      - name: node_id
+      - name: spdx_id
+      - name: html_url
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_license_hashid

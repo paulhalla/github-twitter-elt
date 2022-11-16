@@ -3,4 +3,3 @@ target/
 dbt_packages/
 logs/
 profiles.yml
-models/staging/github_airflow/

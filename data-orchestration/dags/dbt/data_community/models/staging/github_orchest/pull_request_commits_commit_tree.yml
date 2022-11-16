@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: pull_request_commits_commit_tree
+    columns:
+      - name: airbyte_commit_hashid
+      - name: sha
+      - name: url
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_tree_hashid

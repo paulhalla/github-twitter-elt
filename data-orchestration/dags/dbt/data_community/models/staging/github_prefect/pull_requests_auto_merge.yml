@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: pull_requests_auto_merge
+    columns:
+      - name: airbyte_pull_requests_hashid
+      - name: enabled_by
+      - name: commit_title
+      - name: merge_method
+      - name: commit_message
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_auto_merge_hashid

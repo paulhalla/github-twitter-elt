@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: releases_scd
+    columns:
+      - name: airbyte_unique_key
+      - name: airbyte_unique_key_scd
+      - name: id
+      - name: url
+      - name: body
+      - name: name
+      - name: draft
+      - name: assets
+      - name: author
+      - name: node_id
+      - name: html_url
+      - name: tag_name
+      - name: assets_url
+      - name: created_at
+      - name: prerelease
+      - name: repository
+      - name: upload_url
+      - name: tarball_url
+      - name: zipball_url
+      - name: published_at
+      - name: target_commitish
+      - name: airbyte_start_at
+      - name: airbyte_end_at
+      - name: airbyte_active_row
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_releases_hashid

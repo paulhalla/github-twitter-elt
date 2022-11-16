@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: pull_request_comment_reactions
+    columns:
+      - name: id
+      - name: user
+      - name: content
+      - name: node_id
+      - name: comment_id
+      - name: created_at
+      - name: repository
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_pull_request_comment_reactions_hashid
+      - name: airbyte_unique_key

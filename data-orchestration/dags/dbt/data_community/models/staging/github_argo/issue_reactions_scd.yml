@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: issue_reactions_scd
+    columns:
+      - name: airbyte_unique_key
+      - name: airbyte_unique_key_scd
+      - name: id
+      - name: user
+      - name: content
+      - name: node_id
+      - name: created_at
+      - name: repository
+      - name: issue_number
+      - name: airbyte_start_at
+      - name: airbyte_end_at
+      - name: airbyte_active_row
+      - name: airbyte_ab_id
+      - name: airbyte_emitted_at
+      - name: airbyte_normalized_at
+      - name: airbyte_issue_reactions_hashid
