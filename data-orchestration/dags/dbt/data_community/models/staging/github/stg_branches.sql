@@ -1,7 +1,3 @@
-{% macro source(name) -%}
-     {{name}} greatest of all time!
-{%- endmacro %}
-
 {% set schema_names=('github_airflow', 'github_argo', 'github_dagster', 'github_luigi', 'github_orchest', 'github_prefect') %}
 
 with stg_branches as (
