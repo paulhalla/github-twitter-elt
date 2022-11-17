@@ -1,0 +1,74 @@
+version: 2
+models:
+  - name: stg_pull_request_stats
+    columns:
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: merged
+        description: ""
+        meta:
+          dimension:
+            type: boolean
+      - name: number
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: commits
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: comments
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: additions
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: deletions
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: mergeable
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: merged_by
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: updated_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: changed_files
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: review_comments
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: merge_state_status
+        description: ""
+        meta:
+          dimension:
+            type: string

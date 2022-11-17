@@ -1,0 +1,64 @@
+version: 2
+models:
+  - name: stg_issues_labels
+    columns:
+      - name: airbyte_issues_hashid
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: url
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: name
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: color
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: default
+        description: ""
+        meta:
+          dimension:
+            type: boolean
+      - name: node_id
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: description
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: airbyte_ab_id
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: airbyte_emitted_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: airbyte_normalized_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: airbyte_labels_hashid
+        description: ""
+        meta:
+          dimension:
+            type: string

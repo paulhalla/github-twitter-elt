@@ -1,0 +1,69 @@
+version: 2
+models:
+  - name: stg_issues_milestone
+    columns:
+      - name: airbyte_issues_hashid
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: state
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: title
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: due_on
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: number
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: creator
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: closed_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: created_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: updated_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: description
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: open_issues
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: closed_issues
+        description: ""
+        meta:
+          dimension:
+            type: number

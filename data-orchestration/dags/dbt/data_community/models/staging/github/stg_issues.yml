@@ -1,0 +1,64 @@
+version: 2
+models:
+  - name: stg_issues
+    columns:
+      - name: airbyte_unique_key
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: body
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: title
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: labels
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: locked
+        description: ""
+        meta:
+          dimension:
+            type: boolean
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: updated_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: pull_request
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: repository_url
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: author_association
+        description: ""
+        meta:
+          dimension:
+            type: string

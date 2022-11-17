@@ -35,6 +35,3 @@ models:
   data_community:
     # Config indicated by + and applies to all files under models/example/
     +materialized: view
-
-vars:
-  my_list_of_tables:

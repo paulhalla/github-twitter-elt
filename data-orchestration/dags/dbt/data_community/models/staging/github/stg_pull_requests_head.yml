@@ -1,0 +1,24 @@
+version: 2
+models:
+  - name: stg_pull_requests_head
+    columns:
+      - name: airbyte_pull_requests_hashid
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: label
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: repo_id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: user_id
+        description: ""
+        meta:
+          dimension:
+            type: number

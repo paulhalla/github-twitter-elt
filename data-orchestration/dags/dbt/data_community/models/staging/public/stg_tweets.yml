@@ -1,0 +1,49 @@
+version: 2
+models:
+  - name: stg_tweets
+    columns:
+      - name: username
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: tweet_created_at
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: edit_history_tweet_ids
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: text
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_likes
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: number_of_quotes
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: number_of_replies
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: number_of_retweets
+        description: ""
+        meta:
+          dimension:
+            type: number
