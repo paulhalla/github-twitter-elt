@@ -34,5 +34,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   data_community:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    +materialized: view
+
+vars:
+  my_list_of_tables:
