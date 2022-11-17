@@ -1,5 +1,8 @@
+{% set schema_names=('github_airflow', 'github_argo', 'github_dagster', 'github_luigi', 'github_orchest', 'github_prefect') %}
+
 with stg_commits_author as (
 
+    {% for schema in schema_names %}
     select
         "_AIRBYTE_COMMITS_HASHID"::VARCHAR as airbyte_commits_hashid,
         "ID"::NUMBER as id,
@@ -25,8 +28,13 @@ with stg_commits_author as (
         -- "_AIRBYTE_NORMALIZED_AT"::TIMESTAMP_TZ as airbyte_normalized_at,
         -- "_AIRBYTE_AUTHOR_HASHID"::VARCHAR as airbyte_author_hashid
 
-    from {{ source('github_airflow', 'commits_author') }}
+    from {{ source(schema|string, 'commits_author') }}
 
+    {% if not loop.last %}
+
+    union all
+    {% endif %}
+    {% endfor %}
 )
 
 select * from stg_commits_author
