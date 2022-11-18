@@ -96,7 +96,7 @@ Pipeline orchestration was performed with **Apache Airflow**. It was built by Ma
 
 
 # Solution architecutre
-TBD
+<img src='assets/solution_arch.png' />
 
 
 
