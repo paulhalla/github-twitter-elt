@@ -25,7 +25,7 @@ most_recent_record as (
 
 first_val as (
     select 
-        regexp_replace(split(file_name,'-')[0]::varchar, '.json', '') as username,
+        lower(regexp_replace(split(file_name,'-')[0]::varchar, '.json', '')) as username,
         last_load_time
     from most_recent_record
     qualify row_number() over (partition by username order by last_load_time) = 1

@@ -9,32 +9,20 @@ sources:
         columns:
           - name: username
             description: 'Username of the Twitter user'
-            tests: 
-              - not_null
           - name: data
             description: 'Tweets and data conerning the tweets'
-            tests: 
-              - not_null
           - name: metadata
             description: 'Information on the ingested batch'
-            tests: 
-              - not_null
       - name: raw_twitter_users
         description: 'The list of users whose tweets have been extracted'
         columns:
           - name: username
             description: 'Username of the Twitter user'
-            tests: 
-              - unique
-              - not_null
           - name: name
             description: 'Full name of the Twitter user'
             tests: null
           - name: id
             description: 'Twitter user id'
-            tests: 
-              - unique
-              - not_null
           - name: public_metrics
             description: 'Statistics on the twitter user (tweets, followers, etc)'
             tests: null

@@ -23,7 +23,7 @@ most_recent_record as (
     where last_load_time = most_recent_date
 )
 select 
-    split(file_name, '.json')[0]::varchar as username,
+    lower(split(file_name, '.json')[0]::varchar) as username,
     last_load_time
 from most_recent_record
 order by file_name

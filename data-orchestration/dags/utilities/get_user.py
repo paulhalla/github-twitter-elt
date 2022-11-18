@@ -1,7 +1,11 @@
 import os 
 import json
 import requests
+import logging
 from auth.auth import BearerTokenAuth
+
+# set up logging
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s][%(asctime)s]: %(message)s")
 
 
 
@@ -57,7 +61,7 @@ def get_user_details(url: str) -> json:
     response = requests.request("GET", url, auth=bearer_oauth)
 
     if response.status_code != 200:
-        raise Exception("Request returned an error: {} {}".format(
+        logging.error("Request returned an error: {} {}".format(
             response.status_code, response.text
         ))
 

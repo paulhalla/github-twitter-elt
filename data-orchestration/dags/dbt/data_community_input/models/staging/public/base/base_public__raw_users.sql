@@ -1,6 +1,6 @@
 with source_data as (
     select
-        username,
+        lower(username) as username,
         name as user_full_name,
         id as user_id,
         public_metrics['followers_count'] as number_of_followers,

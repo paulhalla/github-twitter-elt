@@ -1,8 +1,11 @@
 import requests
 import os
 import json
+import logging
 from auth.auth import BearerTokenAuth
 
+# set up logging
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s][%(asctime)s]: %(message)s")
 
 
 def create_url_tweets(user_id: str) -> str:
@@ -62,7 +65,7 @@ def get_user_tweets(url: str, params: dict=None) -> json:
 
 
     if response.status_code != 200:
-        raise Exception("Request returned an error: {} {}".format(
+        logging.error("Request returned an error: {} {}".format(
             response.status_code, response.text
         ))
 

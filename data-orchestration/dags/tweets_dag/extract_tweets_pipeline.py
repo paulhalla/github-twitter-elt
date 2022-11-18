@@ -57,15 +57,13 @@ with DAG(
     twitter_dbt_run_prior = BashOperator(
         task_id='build_input_tweet_tables',
         env=dbt_env_json,
-        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_input_tweets.sh ',
-        trigger_rule=TriggerRule.ALL_DONE
+        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_input_tweets.sh '
     )
 
     twitter_dbt_run = BashOperator(
         task_id='twitter_dbt_run',
         env=dbt_env_json,
         bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh ',
-        trigger_rule=TriggerRule.ONE_FAILED
     )
 
     el_start >> extract_tweets >> twitter_dbt_run_prior >> dbt_freshness >> twitter_dbt_run >> el_end >> el_fail_watcher

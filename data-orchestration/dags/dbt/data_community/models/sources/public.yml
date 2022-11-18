@@ -8,14 +8,14 @@ sources:
       error_after: {count: 4, period: hour}
     loaded_at_field: last_load_time
     tables:
-      - name: serving_tweets
+      - name: input_tweets
         description: 'The full list of tweets with loaded times from the specified users'
         columns:
           - name: username
             description: 'Username of the Twitter user'
             tests: 
               - not_null
-      - name: serving_twitter_users
+      - name: input_twitter_users
         description: 'The list of users with loaded times whose tweets have been extracted'
         columns:
           - name: username

@@ -30,7 +30,7 @@ joined as (
         pinned_tweet_id,
         tweets.last_load_time
     from tweets 
-    inner join users 
+    left join users 
         on tweets.username = users.username
 ),
 
