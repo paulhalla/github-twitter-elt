@@ -1,6 +1,6 @@
 s3:
   bucket_name: 'dec2-dbt-docs'
-  serving_folder: 'decbrismoh-snowflake'
+  ingest_folder: 'decbrismoh-snowflake'
   docs_files_path: '/opt/airflow/dags/dbt/data_community/target'
   docs_files:
     - catalog.json
