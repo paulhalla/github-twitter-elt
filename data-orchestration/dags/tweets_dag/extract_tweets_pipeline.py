@@ -1,23 +1,18 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.utils.trigger_rule import TriggerRule
-from airflow.exceptions import AirflowException
-from airflow.decorators import task
+from airflow.models import Variable
 from tweets_dag.tasks.extract_tweets import extract
 import pendulum
 
 
 
-@task(trigger_rule=TriggerRule.ONE_FAILED)
-def watcher():
-    raise AirflowException("Failing tasks because an upstream task failed")
-
-
 with DAG(
     'extract_tweets',
     description='Extract tweets from Twitter',
-    schedule='0 */2 * * *',
+    schedule='@daily',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
     tags=['extraction']
@@ -33,7 +28,7 @@ with DAG(
     el_fail_watcher = SlackWebhookOperator(
         task_id='twitter_extracts_fail',
         http_conn_id='slack_dec',
-        message='Twitter extracts failed',
+        message='An upstream task failed. View logs',
         channel='#project2-group3',
         trigger_rule=TriggerRule.ONE_FAILED
     )
@@ -50,10 +45,36 @@ with DAG(
         python_callable=extract
     )
 
-    el_start >> extract_tweets >> el_end >> el_fail_watcher
+    dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
 
-    task_list = dag.tasks 
-    task_list >> watcher()
+
+    # check source freshness
+    dbt_freshness = BashOperator(
+        task_id='dbt_freshness',
+        bash_command="/opt/airflow/dags/tweets_dag/scripts/check_source_freshness.sh "
+    )
+
+    twitter_dbt_run_prior = BashOperator(
+        task_id='build_input_tweet_tables',
+        env=dbt_env_json,
+        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_input_tweets.sh '
+    )
+
+    twitter_dbt_run = BashOperator(
+        task_id='twitter_dbt_run',
+        env=dbt_env_json,
+        bash_command='/opt/airflow/dags/tweets_dag/scripts/transform_tweets.sh ',
+    )
+
+    el_start >> extract_tweets >> twitter_dbt_run_prior >> dbt_freshness >> twitter_dbt_run >> el_end >> el_fail_watcher
+
+
+
+
+
+
+
+
 
 
 
