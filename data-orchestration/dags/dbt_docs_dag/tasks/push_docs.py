@@ -13,7 +13,6 @@ def push_docs():
     # s3 bucket config
     s3_client = boto3.client('s3')
     bucket_name = config.get('s3').get('bucket_name')
-    serving_folder = config.get('s3').get('serving_folder')
 
     # set up logging
     logging.basicConfig(level=logging.INFO, format="[%(levelname)s][%(asctime)s]: %(message)s")
