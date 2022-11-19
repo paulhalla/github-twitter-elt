@@ -3,13 +3,35 @@
 <br/>
 
 # Table of Content 
+- [Codebase](#code-base)
 - [Introduction](#introduction)
 - [High-level Task Assignment](#high-level-task-assignment) 
 - [Project Management](#project-management)
 - [Research Questions](#research-questions)
 - [Data Sources](#data-sources)
 - [Solution Architecture](#solution-architecutre)
-- 
+    - [Orchestration](#orchestration) 
+    - [Ingestion](#ingestion)
+    - [Transformation](#transformation) 
+    - [Semantic Layer](#semantic-layer) 
+- [Collaboration](#collaboration)
+- [DAGS](#dags)
+- [Shortcuts and Issues](#shortcuts-and-issues)
+- [Appedices and References](#appendices-and-references)
+
+<br/>
+
+# Code base
+
+## Code Snippets 
+The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
+
+## Data Integration 
+This folder contains screenshots of connections in the Airbyte.
+
+## Data orchestration 
+This is the main directory of the project. It houses all the airflow dags and the DBT projects. 
+
 <br/>
 
 
@@ -106,20 +128,6 @@ DBT was used to transform the ingested data into usable business conformed model
 ## Semantic Layer
 **Lightdash** was used in the semantic layer of our pipeline. We chose lightdash because it integrates seamlessly with DBT and it was very trivial to set up. 
 
-
-<br/>
-
-
-# Code base
-
-## Code Snippets 
-The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
-
-## Data Integration 
-This folder contains screenshots of connections in the Airbyte.
-
-## Data orchestration 
-This is the main directory of the project. It houses all the airflow dags and the DBT projects. 
 
 <br/>
 
