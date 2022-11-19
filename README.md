@@ -6,6 +6,13 @@
 - [Introduction](#introduction)
 - [High-level Task Assignment](#high-level-task-assignment) 
 - [Project Management](#project-management)
+- [Research Questions](#research-questions)
+- [Data Sources](#data-sources)
+- [Solution Architecture](#solution-architecture)
+- [Folder Structure](#folder-structure)
+- [Shortcuts and Issues](#shortcuts-and-issues)
+- [Unconventional Patterns](#unconventional-patterns)
+- [Appendices](#appendices)
 
 <br/>
 
