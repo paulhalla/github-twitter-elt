@@ -4,8 +4,8 @@ sources:
     database: airbyte_database
     schema: public
     freshness: 
-      warn_after: {count: 2, period: hour}
-      error_after: {count: 4, period: hour}
+      warn_after: {count: 48, period: hour}
+      error_after: {count: 48, period: hour}
     loaded_at_field: last_load_time
     tables:
       - name: input_tweets
