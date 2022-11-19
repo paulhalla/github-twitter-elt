@@ -19,7 +19,7 @@ def watcher():
 # Decide on a good frequency
 with DAG(
     'serve_docs',
-    description='Extract tweets from Twitter',
+    description='Serve DBT Documentation site',
     schedule='@daily',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
@@ -56,7 +56,7 @@ with DAG(
     dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
 
     dbt_docs_generate = BashOperator(
-        task_id='dbt_version',
+        task_id='dbt_docs_generate',
         bash_command="/opt/airflow/dags/dbt_docs_dag/scripts/generate_docs.sh "
     )
 
