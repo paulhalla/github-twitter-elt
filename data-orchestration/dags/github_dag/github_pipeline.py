@@ -15,7 +15,7 @@ def watcher():
 
 with DAG(
     'extract_github_data',
-    description='Extract data from Github',
+    description='Extract data from GitHub',
     schedule='@daily',
     start_date=pendulum.datetime(2021, 1, 1, tz='UTC'),
     catchup=False,
@@ -32,7 +32,7 @@ with DAG(
     el_fail_watcher = SlackWebhookOperator(
         task_id='fail_github_extraction',
         http_conn_id='slack_dec',
-        message='Github data extracts failed',
+        message='GitHub data extracts failed',
         channel='#project2-group3',
         trigger_rule=TriggerRule.ONE_FAILED
     )
@@ -40,7 +40,7 @@ with DAG(
     el_end = SlackWebhookOperator(
         task_id='succeed_github_extraction',
         http_conn_id='slack_dec',
-        message='Github data extracts succeeded',
+        message='GitHub data extracts succeeded',
         channel='#project2-group3'
     )
 

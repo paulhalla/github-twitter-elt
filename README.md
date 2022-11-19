@@ -64,22 +64,22 @@ Project management - task assignment - was managed using Notion. Project meeting
 <br/>
 
 # Data Sources 
-Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. Github and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
+Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. GitHub and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
 ## Twitter tweets 
 We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually.
 
 
-## Github repo activity dataset via official Airbyte Github source.  
-The dataset includes the Github repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
+## GitHub repo activity dataset via official Airbyte GitHub source.  
+The dataset includes the GitHub repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
 
 
 <br/>
 
 
 ## Transformation 
-TBD by Paul
+GitHub 
 
 
 
@@ -104,9 +104,9 @@ Our backfill of twitter data started in 2012 - we had about 10 years worth of tw
 <img src='assets/twitter_dag.png'>
 
 
-DBT is then used to transform the ingested data into usable business conformed models.
+dbt is then used to transform the ingested data into usable business conformed models.
 
-Lightdash was used in the semantic layer of our pipeline. We chose lightdash but it integrates seamlessly with DBT and it was very trivial set up. 
+Lightdash was used in the semantic layer of our pipeline. We chose lightdash but it integrates seamlessly with dbt and it was very trivial set up. 
 
 Replication with Airbyte was performed on a daily basis. 
 
@@ -114,7 +114,7 @@ Replication with Airbyte was performed on a daily basis.
 API limits were perpetually exceeded on a single github token so we tried to "load balance" API calls on 3 separate github tokens, created by each member of the team. This streamlined the ingestion process but it was by no means a permanent fix like we thought it would be. After a few replications, we noticed that we had exceeded our limits again. 
 
 
-However, we continued work on the data we had ingested prior. Most of the data transformations were performed using DBT by Paul Hallaste. We utilised some conventional best practices in the naming of our models and folder structure. We found that [this](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview) guide was very helpful. We learned how modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
+However, we continued work on the data we had ingested prior. Most of the data transformations were performed using dbt by Paul Hallaste. We utilised some conventional best practices in the naming of our models and folder structure. We found that [this](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview) guide was very helpful. We learned how modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
 
 
 
@@ -130,8 +130,8 @@ The `code-snippets` folder contains SQL code that was used to build essential ob
 ## Data Integration 
 This folder contains screenshots of connections in Airbyte.
 
-## Data orchestration 
-This directory is the main directory of the project. It houses all the airflow dags and the DBT projects. 
+## Data Orchestration 
+This directory is the main directory of the project. It houses all the airflow dags and the dbt projects. 
 
 ### DAGS 
 
@@ -165,8 +165,11 @@ We created three dags for our pipeline namely:
 
     <img src='assets/dbt_docs.png' />
 
-    This dag updates the DBT documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the DBT documentation files in the `target` folder of the dbt project. The `push_docs_to_s3` is a python task that pushes the files to an s3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to s3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
+    This dag updates the dbt documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. The `push_docs_to_s3` is a python task that pushes the files to an s3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to s3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
 
+## Transformation
+
+The ingested data is tras
 
 <br/>
 
@@ -180,10 +183,10 @@ GitHub was used to collaboratively work on this project. See Figure 2 below for 
 # Shortcuts and Issues
 
 ## CI/CD 
-Towards the end of the project, we tried to implement CI/CD with this pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
+Towards the end of the project, we tried to implement CI/CD with this pipeline. The services we considered were **CodeDeploy** and **GitHub Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
 
 # Unconventional Patterns 
-Conventional usage of DBT preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
+Conventional usage of dbt preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
 - Renaming 
 - Type casting
 - Basic computations (e.g. with macros, sql functions, etc)
