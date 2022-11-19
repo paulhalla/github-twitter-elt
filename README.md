@@ -3,26 +3,25 @@
 <br/>
 
 # Table of Content 
-- Introduction 
-    
-- High-level Task Assignment 
-
-- Project Management 
+- [Introduction](#introduction)
+- [High-level Task Assignment](#high-level-task-assignment) 
+- [Project Management](#project-management)
 
 <br/>
 
 
 # Introduction
 Keyword frequency is defined as how often a keyword appears in a given piece of text or content. It is considered in efforts such as Search Engine Optimsation (SEO) and digital marketing.
+
 Sentiment analysis refers a process that seeks to computationally categorise the opinion expressed in a piece of text to learn the writer's attitude towards a particular subject. Generally, categories considered are *positive*, *negative*, and *neutral*.
 
-The goal of the project was to design and a build a reliable data pipeline for the data science consultancy company, PRO Inc. The development of the pipeline was the key to answering some research questions posited by the owners. The owners - Paul, Rashid, and Oliver, allowed a period of three weeks to complete the project.
+The goal of the project was to design and a build a reliable data pipeline for the data science consultancy company, **PRO Inc**. The development of the pipeline was the key to answering some research questions. The owners - Paul, Rashid, and Oliver, allowed a period of three weeks to complete the project.
 
 <br/>
 
 # High-level Task Assignment 
 
-| Task                             | Member Responsible 
+| Pipeline Stage                             | Member Responsible 
 |----------------------------------|------------------- 
 | Ingestion                        | Rashid Mohammed
 | Orchestration                    | Oliver Liu
