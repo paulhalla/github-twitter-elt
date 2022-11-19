@@ -19,7 +19,7 @@ with DAG(
     schedule='@daily',
     start_date=pendulum.datetime(2021, 1, 1, tz='UTC'),
     catchup=False,
-    tags=['extraction']
+    tags=['extraction', 'transformation']
 ) as dag:
 
     el_start = SlackWebhookOperator(
@@ -54,6 +54,8 @@ with DAG(
         timeout=3600,
         wait_seconds=3
     )
+
+    # build some models
 
 
     el_start >> trigger_sync >> el_end >> el_fail_watcher

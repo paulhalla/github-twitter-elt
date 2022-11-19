@@ -1,134 +1,112 @@
-# Project plan 
+# ELT Pipeline for Keyword Frequency and Sentiment Analysis
 
-## Objective
+<br/>
 
-Our dataset shows trends for what is happening in the data community, in Twitter and Github.
+| Todos                                  | Description                              | Responsible/Accountable
+|-------------------------------------------|------------------------------------------|-------------------------
+| Add table of content                             |                                           |
+| Add badges                                       |                                          |
+| Provide solution architecture                    | Provide diagram of pipeline architecture |
+| Describe the flaws of the pipeline               |
+| Talk about improvements for the future           |  
+| Describe the pipeline                            | 
+| Describe the dags                                |
+| Describe the transformation logic                |     
+| Describe any unconvetional logic/patterns        |
+| Talk about issues encountered during development |
+| Mention shortcuts (eg. cron instead of CI/CD)
 
-## Consumers
+<br/>
 
-The data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
+# Introduction
+Keyword frequency is defined as how often a keyword appears in a given piece of text or content. It is considered in efforts such as Search Engine Optimsation (SEO) and digital marketing.
+Sentiment analysis refers a process that seeks to computationally categorise the opinion expressed in a piece of text to learn the writer's attitude towards a particular subject. Generally, categories considered are *positive*, *negative*, and *neutral*.
 
-## Questions
+The goal of the project was to design and a build a reliable data pipeline for the data science consultancy company, PRO Inc. The development of the pipeline was the key to answering some research questions posited by the owners. The owners - Paul, Rashid, and Oliver, allowed a period of three weeks to complete the project.
 
-Twitter data:
+<br/>
+
+# High-level Task Assignment 
+
+| Task                             | Member Responsible 
+|----------------------------------|------------------- 
+| Ingestion                        | Rashid Mohammed
+| Orchestration                    | Oliver Liu
+| Transformation and Quality Tests | Paul Hallaste
+
+
+<br/>
+
+# Project Management 
+Project management - task assignment - was managed using Notion. Project meetings were held on a weekly basis to:
+- Make sure team members were on schedule 
+- Reschedule tasks were necessary
+- Share knowledge
+
+## Kanban 
+<img src='assets/Kanban.png'/>
+
+<br/>
+
+# Research Questions 
+## Twitter data
 1. Keyword frequency analysis: How often do data practicioners mention cloud data warehouses and which ones? How often and since when do they mention data space trends such as "data mesh" and "data vault"?
 2. Sentiment analysis with regard to data warehouse tools
 
-Github data:
+
+## GitHub
 1. How much activity there is in each of the repositories (counted by, for example trendline for no. of commits in the repository)
 2. What languages are mainly used in the each of the repos (Python vs. SQL vs. Java etc)
 3. Top contributors in the repos?
 4. Many contributors, few commits vs. few contributors, many commits?
 5. Location of users etc.
 
+<br/>
 
-## Source datasets
-What datasets are you sourcing from? 
-
-- Twitter dataset via Twitter API. We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually.
-- Github repo activity dataset via official Airbyte Github source. The dataset includes the Github repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
+# Data Sources 
+Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. Github and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
+## Twitter tweets 
+We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually.
 
-## Solution architecutre
+
+## Github repo activity dataset via official Airbyte Github source.  
+The dataset includes the Github repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
+
+
+<br/>
+
+
+# Methodology 
+
+## Ingestion 
+**Airbyte** was used the data integration tool for the ingestion of data. It was selected because it's open source and it's gaining a lot of traction in the data community. Airbyte was used to extract github repo activity data however, a custom python script was developed to extract the tweets of selected twitter users. The python script can be found in `data-orchestration/dags/tweets_dag/extract_tweets_pipeline.py`.
+
+
+## Transformation 
+TBD by Paul
+
+
+## Orchestration 
+Pipeline orchestration was performed with **Apache Airflow**. It was built by Maxime Beauchemin in October 2014 and has gained widespread adoption since then. 
+
+
+<br/>
+
+
+# Solution architecutre
 TBD
 
-## Breakdown of tasks
-How is your project broken down? Who is doing what?
-
-Each of us has a primary responsibility based on the architecture component
-
-Ingestion: Rashid  
-Orchestration: Oliver  
-Storage (incl. transformation, data quality tests): Paul
-
-However, all 3 of us own the project, so we will jump in to help each other as we can.
-
-  
-
----  
-
-<br>
-SQL code for ingesting JSON data from S3 bucket into Snowflake tables   
-
-<br>
-
-1. Create tables for tweet and twitter user data 
-
-```sql
-create or replace table raw_tweets_full(
-    username varchar(16777216),
-    data variant,
-    metadata variant
-);
-```
-
-```sql
-create or replace table raw_twitter_users(
-    username varchar(16777216),
-    name varchar(16777216),
-    id integer, 
-    public_metrics variant,
-    pinned_tweet_id integer,
-    description varchar(16777216),
-    created_at timestamp_ntz,
-    verified varchar(16777216)
-);
-```
-<br>
-
-2. Create the stage integration
-
-```sql
-create or replace storage integration twitter_integration
-    type = external_stage
-    storage_provider = S3
-    enabled = TRUE
-    storage_aws_role_arn = '[role value here]'
-    storage_allowed_locations = ('*');
-```    
-<br>
-
-3. Create stages using the storage integration
-
-```sql
-create or replace stage airbyte_database.public.twitter_data_stage
-    url = '[tweets json files S3 URI here]'
-    storage_integration = TWITTER_INTEGRATION
-    file_format = (type = JSON);
-```
 
 
-```sql
-create or replace stage airbyte_database.public.twitter_users_stage
-    url = '[twitter users json files S3 URI here]'
-    storage_integration = TWITTER_INTEGRATION
-    file_format = (type = JSON);
-```
-<br>
+<br/><br/>
 
-4. Copy data from stages into target tables
+# Appendices 
+## Appendix A
 
-```sql
- copy into airbyte_database.public.raw_tweets_full
- from (select 
-    split_part(split_part(split_part(metadata$filename, '/', 3), '-', 0), '.json', 0),
-    $1:data, 
-    $1:meta
-from @airbyte_database.public.twitter_data_stage);
-```
+### GitHub REST API
+https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api
 
-```sql
-  copy into airbyte_database.public.raw_twitter_users
- from (
-     select 
-        $1:data[0].username,
-        $1:data[0].name,
-        $1:data[0].id,
-        $1:data[0].public_metrics,
-        $1:data[0].pinned_tweet_id,
-        $1:data[0].description,
-        $1:data[0].created_at,
-        $1:data[0].verified
-    from @airbyte_database.public.twitter_users_stage);
-```
+### Twitter API
+https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api

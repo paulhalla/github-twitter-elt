@@ -1,0 +1,163 @@
+version: 2 
+
+models:
+  - name: one_big_twitter_table
+    description: A denormalised table containing users and their tweets
+    meta: 
+      owner: 'rashid'
+    columns:
+      - name: user_full_name
+        description: The name of the user, as they've defined it on their profile. Not necessarily a person's name.
+        tests: 
+          - not_null
+      - name: user_id
+        description: The unique identifier of the user
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: user_description
+        description: The text of this user's profile description (also known as bio), if the user provided one.
+      - name: tweet_created_at
+        description: Creation time of the Tweet.
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: number_of_retweets
+        description: Number of times a tweet is retweeted
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: id
+        description: The unique identifier of the requested tweet 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+          - unique:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: number_of_quotes
+        description: Number of times the requested tweet has been quoted.
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: number_of_twitter_lists 
+        description: Number of twitter lists the requested user is listed in
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: number_of_followers 
+        description: The number of followers of the requested user 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: username
+        description: > 
+          The Twitter screen name, handle, or alias that this user identifies themselves with. 
+          Usernames are unique but subject to change. Typically a maximum of 15 characters long, but some 
+          historical accounts may exist with longer names.
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: user_joined_at
+        description: The UTC datetime that the user account was created on Twitter.
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: tweet 
+        description: The actual UTF-8 text of the Tweet. See twitter-text for details on what characters are currently considered valid.
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: number_of_following
+        description: The number of following of the requested user 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: number_of_tweets 
+        description: The number of tweets of the requested user 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: last_load_time
+        description: The most recent ingestion time for both users and tweets
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: pinned_tweet_id
+        description: The tweet id of the requested user's pinned tweet 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: edit_history_tweet_ids
+        descripton: The tweet ids of previous versions of the requested tweet
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+          - unique:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0"
+      - name: number_of_likes 
+        description: The number of likes of the requested tweet 
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 
+      - name: number_of_replies 
+        description: The number of replies to the requested tweet
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">0" 

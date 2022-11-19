@@ -31,7 +31,6 @@
 
 ## Running recent changes
 - Pull recent changes from [main](https://github.com/paulhalla/dec-project-2)
-- Do not run the DAG locally. (Open to ideas)
 
 ## Push changes
 - Make your task changes.
@@ -149,3 +148,8 @@ docker-compose up -d
 
 ## Pull recent changes from the main branch 
 Same as above.
+
+<br/>
+
+# Side effects 
+How do we deal with side effects in pipeline development?
