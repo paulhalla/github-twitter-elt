@@ -64,23 +64,22 @@ Project management - task assignment - was managed using Notion. Project meeting
 <br/>
 
 # Data Sources 
-Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. GitHub and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
+Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. Github and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appedix A of this document. Additionally, the data would be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
 ## Twitter tweets 
 We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually.
 
 
-## GitHub repo activity dataset via official Airbyte GitHub source.  
-The dataset includes the GitHub repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
+## Github repo activity dataset via official Airbyte Github source.  
+The dataset includes the Github repos of 6 prominent open-source data orchestration tools: Airflow, Dagster, Prefect, Argo, Luigi and Orchesto.
 
 
 <br/>
 
 
 ## Transformation 
-GitHub 
-
+Both the Github and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code for this transformation can be seen here[PLACEHOLDER].
 
 
 <br/>
@@ -183,7 +182,7 @@ GitHub was used to collaboratively work on this project. See Figure 2 below for 
 # Shortcuts and Issues
 
 ## CI/CD 
-Towards the end of the project, we tried to implement CI/CD with this pipeline. The services we considered were **CodeDeploy** and **GitHub Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
+Towards the end of the project, we tried to implement CI/CD with this pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
 
 # Unconventional Patterns 
 Conventional usage of dbt preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
