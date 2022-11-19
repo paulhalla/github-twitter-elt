@@ -3,7 +3,7 @@ with stars_per_repo as (
         repository,
         count(user_id)
     from
-        stg_stargazers
+        ref{{'stg_stargazers'}}
     group by repository
 )
 
