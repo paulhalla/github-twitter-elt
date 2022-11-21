@@ -8,4 +8,5 @@ else
 fi 
 
 cd /tmp/dbt/data_community 
-/usr/local/airflow/dbt_env/bin/dbt docs generate --profiles-dir /opt/airflow/dags/dbt/data_community
+/usr/local/airflow/dbt_env/bin/dbt build --profiles-dir /opt/airflow/dags/dbt/data_community --target prod
+/usr/local/airflow/dbt_env/bin/dbt docs generate --profiles-dir /opt/airflow/dags/dbt/data_community --target prod
