@@ -1,0 +1,59 @@
+version: 2
+models:
+  - name: stg_users
+    columns:
+      - name: username
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user_full_name
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user_id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: number_of_followers
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_following
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_tweets
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_twitter_lists
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: pinned_tweet_id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: user_description
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: created_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: verified
+        description: ""
+        meta:
+          dimension:
+            type: string

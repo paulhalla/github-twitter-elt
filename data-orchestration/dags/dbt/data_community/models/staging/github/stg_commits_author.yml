@@ -1,0 +1,24 @@
+version: 2
+models:
+  - name: stg_commits_author
+    columns:
+      - name: airbyte_commits_hashid
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: type
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: login
+        description: ""
+        meta:
+          dimension:
+            type: string

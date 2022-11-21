@@ -53,13 +53,13 @@
 <br/>
 
 
-# How to structure DBT Projects
+# How to structure dbt Projects
 - [Why does structure matter?](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview)
 
 
 <br/>
 
-# Dockerfile that installs DBT in a virtual environment 
+# Dockerfile that installs dbt in a virtual environment 
 
 ```dockerfile
 
@@ -83,11 +83,11 @@ USER airflow
 <br/>
 
 
-# An example of a DBT Build
+# An example of a dbt Build
 
 ```python 
 
-dbt_env_json = '{{ var.json.DBT_ENV }}'
+dbt_env_json = '{{ var.json.dbt_ENV }}'
 
 dbt_build = BaseOperator(
   task_id='dbt_build',

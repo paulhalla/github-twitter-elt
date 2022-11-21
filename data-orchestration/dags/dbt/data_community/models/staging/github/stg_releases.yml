@@ -1,0 +1,54 @@
+version: 2
+models:
+  - name: stg_releases
+    columns:
+      - name: airbyte_unique_key
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: body
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: name
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: draft
+        description: ""
+        meta:
+          dimension:
+            type: boolean
+      - name: assets
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: author
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: created_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: published_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp

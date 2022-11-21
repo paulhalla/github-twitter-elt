@@ -19,7 +19,7 @@ def watcher():
 # Decide on a good frequency
 with DAG(
     'serve_docs',
-    description='Serve DBT Documentation site',
+    description='Serve dbt Documentation site',
     schedule='@daily',
     start_date=pendulum.datetime(2022, 1, 1, tz='UTC'),
     catchup=False,
@@ -53,7 +53,7 @@ with DAG(
         python_callable=push_docs
     )
 
-    dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
+    dbt_env_json = Variable.get("dbt_ENV", deserialize_json=True)
 
     dbt_docs_generate = BashOperator(
         task_id='dbt_docs_generate',

@@ -1,0 +1,24 @@
+version: 2
+models:
+  - name: stg_issue_labels
+    columns:
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: name
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: description
+        description: ""
+        meta:
+          dimension:
+            type: string

@@ -1,0 +1,74 @@
+version: 2
+models:
+  - name: stg_pull_requests
+    columns:
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: body
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: state
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: title
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: assignee
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: closed_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: merged_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: milestone
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: patch_url
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: created_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: updated_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: author_association
+        description: ""
+        meta:
+          dimension:
+            type: string

@@ -1,0 +1,39 @@
+version: 2
+models:
+  - name: stg_issue_reactions
+    columns:
+      - name: airbyte_unique_key
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: user
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: content
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: created_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: issue_number
+        description: ""
+        meta:
+          dimension:
+            type: number

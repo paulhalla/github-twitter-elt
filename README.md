@@ -106,6 +106,15 @@ The dataset includes the Github repos of 6 prominent open-source data orchestrat
 <br/>
 
 
+## Transformation 
+Both the Github and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code use for Snowpipe this transformation can be seen in [this folder](https://github.com/paulhalla/dec-project-2/tree/paulhalla/code-snippets/bulk-load).
+
+
+<br/>
+
+
+
+
 # Solution architecutre
 
 <img src='assets/solution_arch.png' />
@@ -122,6 +131,19 @@ Our backfill of twitter data started in 2012 - we had about 10 years worth of tw
 API limits were repeatedly exceeded on a single github token so we tried to "load balance" API calls on 3 separate github tokens, created by each member of the team. This streamlined the ingestion process but it was by no means a permanent fix. After a few replications, we noticed that we had exceeded our limits again. We continued to work on previously ingested data while we waited for the limits to reset.
 
 
+<img src='assets/twitter_dag.png'>
+
+
+dbt is then used to transform the ingested data into usable business conformed models.
+
+Lightdash was used in the semantic layer of our pipeline. We chose lightdash but it integrates seamlessly with dbt and it was very trivial set up. 
+
+Replication with Airbyte was performed on a daily basis. 
+
+API limits were perpetually exceeded on a single github token so we tried to "load balance" API calls on 3 separate github tokens, created by each member of the team. This streamlined the ingestion process but it was by no means a permanent fix like we thought it would be. After a few replications, we noticed that we had exceeded our limits again. 
+
+
+However, we continued work on the data we had ingested prior. Most of the data transformations were performed using dbt by Paul Hallaste. We utilised some conventional best practices in the naming of our models and folder structure. We found that [this](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview) guide was very helpful. We learned how modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
 ## Transformation 
 DBT was used to transform the ingested data into usable business conformed models. We utilised some conventional best practices in the naming of our models, folder structure, and model development. We utilised the teachings of a great [guide](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview). We learned how to modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
 
@@ -132,6 +154,16 @@ DBT was used to transform the ingested data into usable business conformed model
 
 
 <br/>
+
+# Folder structure
+## Code Snippets 
+The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
+
+## Data Integration 
+This folder contains screenshots of connections in Airbyte.
+
+## Data Orchestration 
+This directory is the main directory of the project. It houses all the airflow dags and the dbt projects. 
 
 # DAGS 
 
@@ -172,7 +204,6 @@ We created three dags for our pipeline namely:
     **Figure 3**: Serve DBT Documentation Dag
 
     This dag updates the DBT documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the DBT documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
-
 
 <br/>
 

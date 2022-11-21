@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: stg_stargazers
+    columns:
+      - name: airbyte_unique_key
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: user_id
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: repository
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: starred_at
+        description: ""
+        meta:
+          dimension:
+            type: timestamp

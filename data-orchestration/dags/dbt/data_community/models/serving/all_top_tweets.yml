@@ -1,0 +1,49 @@
+version: 2
+models:
+  - name: all_top_tweets
+    columns:
+      - name: username
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: most_liked_tweet
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_likes
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: most_quoted_tweet
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_quotes
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: most_replied_tweet
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_replies
+        description: ""
+        meta:
+          dimension:
+            type: number
+      - name: most_retweeted_tweet
+        description: ""
+        meta:
+          dimension:
+            type: string
+      - name: number_of_retweets
+        description: ""
+        meta:
+          dimension:
+            type: number
