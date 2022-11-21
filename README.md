@@ -18,7 +18,7 @@
     - [Semantic Layer](#semantic-layer) 
 - [Collaboration](#collaboration)
 - [DAGS](#dags)
-- [Extras](#extras)
+- [Discussions](#discussions)
 - [Appedices and References](#appendices-and-references)
 
 <br/>
@@ -186,7 +186,7 @@ GitHub was used to collaboratively work on this project. See Figure 4 below for 
 
 <br/>
 
-# Extras
+# Discussions
 
 ## CI/CD 
 Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. The main con of this approach is config files like `profiles.yml` and ```.env``` have to uploaded to the production server manually every time a change is required. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
