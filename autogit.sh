@@ -36,7 +36,6 @@ else
 fi
 
 
-
 # branch name
 case "${1}" in
     dev)
