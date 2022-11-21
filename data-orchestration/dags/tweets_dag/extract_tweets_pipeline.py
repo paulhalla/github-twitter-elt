@@ -45,7 +45,7 @@ with DAG(
         python_callable=extract
     )
 
-    dbt_env_json = Variable.get("dbt_ENV", deserialize_json=True)
+    dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
 
 
     # check source freshness
