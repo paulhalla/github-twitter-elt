@@ -187,7 +187,7 @@ GitHub was used to collaboratively work on this project. See Figure 4 below for 
 # Extras
 
 ## CI/CD 
-Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
+Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. The main cons of this approach is config files like `profiles.yml` and ```.env``` have to uploaded to the production server manually every time a change is required. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
 
 ## Unconventional Patterns 
 Conventional usage of DBT preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
@@ -200,8 +200,6 @@ Conventional usage of DBT preaches the use of staging tables as mirrors of the s
 
 The only way to get the `load_time` values was join on the `COPY_HISTORY` table view. You can find this unconventional pattern in `data-orchestration/dags/dbt/data_community_input`. 
 
-### Handling configs 
-Configs like `.env` and `profiles.yml` could be better handled using continuous deployment
 
 ## DBT Documentation 
 The DBT documentation site can be improved.
