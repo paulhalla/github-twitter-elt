@@ -86,15 +86,15 @@ The research questions categorised by data source are listed below.
 <br/>
 
 # Data Sources 
-Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. Github and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appendix A. Additionally, the data will be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
+Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. GitHub and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appendix A. Additionally, the data will be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
 ## Twitter tweets 
 We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually. The list can be found in `data-orchestration/dags/user_data/users.txt`.
 
 
-## Github repo activity dataset via official Airbyte Github source.  
-The dataset includes the Github repos of 6 prominent open-source data orchestration tools: 
+## GitHub repo activity dataset via official Airbyte GitHub source.  
+The dataset includes the GitHub repos of 6 prominent open-source data orchestration tools: 
 - Airflow
 - Dagster
 - Prefect
@@ -107,7 +107,7 @@ The dataset includes the Github repos of 6 prominent open-source data orchestrat
 
 
 ## Transformation 
-Both the Github and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code use for Snowpipe this transformation can be seen in [this folder](https://github.com/paulhalla/dec-project-2/tree/paulhalla/code-snippets/bulk-load).
+Both the GitHub and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code use for Snowpipe this transformation can be seen in [this folder](https://github.com/paulhalla/dec-project-2/tree/paulhalla/code-snippets/bulk-load).
 
 
 <br/>
@@ -189,7 +189,7 @@ We created three dags for our pipeline namely:
 
     <img src='assets/extract_github_data.png' >
 
-    **Figure 2**: Github Dag
+    **Figure 2**: GitHub Dag
 
     The `extract_github_data` dag was used to perform ELT on the github repo data. The dag starts by notifying the team about its start. Subsequently, a replication job in airbyte is triggered with the `trigger_sync` task. If it succeeds, the `succeed_github_extraction` task is triggered. It notifies the team about the successful completion of the replication. However if the `trigger_sync` task fails, the `succeed_github_extraction` task is skipped and `fail_github_extraction` task is triggered. This task notifies the team about the unsuccessful replication of the github data in our snowflake database. Lastly, a watcher task observes each task and is triggered when any of the tasks fails. 
 
@@ -213,14 +213,14 @@ GitHub was used to collaboratively work on this project. See Figure 4 below for 
 
 <img src="assets/collaboration.png" >
 
-**Figure 4**: Github collaboration
+**Figure 4**: GitHub collaboration
 
 <br/>
 
 # Discussions
 
 ## CI/CD 
-Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **Github Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. The main con of this approach is config files like `profiles.yml` and ```.env``` have to uploaded to the production server manually every time a change is required. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
+Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **GitHub Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. The main con of this approach is config files like `profiles.yml` and ```.env``` have to uploaded to the production server manually every time a change is required. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
 
 ## Unconventional Patterns 
 Conventional usage of DBT preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
