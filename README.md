@@ -32,7 +32,7 @@ The `code-snippets` folder contains SQL code that was used to build essential ob
 This folder contains screenshots of connections in the Airbyte.
 
 ## Data orchestration 
-This is the main directory of the project. It houses all the airflow dags and the DBT projects. 
+This is the main directory of the project. It houses all the airflow dags and the dbt projects. 
 
 <br/>
 
@@ -121,7 +121,7 @@ Both the GitHub and Twitter datasets were transformed to make the data easily ac
 
 
 ## Orchestration 
-Pipeline orchestration was performed with **Apache Airflow**. Airflow was run on a `t2.large` EC2 instance using `docker-compose`. The original airflow image had to be extended to include `DBT` in a separate virtual environment. The `Dockerfile` used can be found in the `data-orchestration` directory. 
+Pipeline orchestration was performed with **Apache Airflow**. Airflow was run on a `t2.large` EC2 instance using `docker-compose`. The original airflow image had to be extended to include `dbt` in a separate virtual environment. The `Dockerfile` used can be found in the `data-orchestration` directory. 
 
 ## Ingestion 
 **Airbyte** was used as the data integration tool for the ingestion process. It was selected because it's open source and it's gaining a lot of traction in the data space. Airbyte was used to extract github repo activity data however, a custom python script was developed to extract the tweets of the selected twitter users. The python script can be found in `data-orchestration/dags/tweets_dag/extract_tweets_pipeline.py`.
@@ -145,12 +145,12 @@ API limits were perpetually exceeded on a single github token so we tried to "lo
 
 However, we continued work on the data we had ingested prior. Most of the data transformations were performed using dbt by Paul Hallaste. We utilised some conventional best practices in the naming of our models and folder structure. We found that [this](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview) guide was very helpful. We learned how modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
 ## Transformation 
-DBT was used to transform the ingested data into usable business conformed models. We utilised some conventional best practices in the naming of our models, folder structure, and model development. We utilised the teachings of a great [guide](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview). We learned how to modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
+dbt was used to transform the ingested data into usable business conformed models. We utilised some conventional best practices in the naming of our models, folder structure, and model development. We utilised the teachings of a great [guide](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview). We learned how to modularise our SQL code in a way that scales, how to test models, and lastly some unique considerations like using a `base` folder to house models that'll be joined in the stage. 
 
 
 
 ## Semantic Layer
-**Lightdash** was used in the semantic layer of our pipeline. We chose lightdash because it integrates seamlessly with DBT and it was very trivial to set up. 
+**Lightdash** was used in the semantic layer of our pipeline. We chose lightdash because it integrates seamlessly with dbt and it was very trivial to set up. 
 
 
 <br/>
@@ -201,9 +201,9 @@ We created three dags for our pipeline namely:
 
     <img src='assets/dbt_docs.png' />
 
-    **Figure 3**: Serve DBT Documentation Dag
+    **Figure 3**: Serve dbt Documentation Dag
 
-    This dag updates the DBT documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the DBT documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
+    This dag updates the dbt documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
 
 <br/>
 
@@ -223,7 +223,7 @@ GitHub was used to collaboratively work on this project. See Figure 4 below for 
 Towards the end of the project, we tried to implement CI/CD in our pipeline. The services we considered were **CodeDeploy** and **GitHub Actions**. We were able to run integration tests however we failed to deploy the project to our EC2 instance. We ended up creating a cronjob that updates the repo in production every minute. The main con of this approach is config files like `profiles.yml` and ```.env``` have to uploaded to the production server manually every time a change is required. We understand that this does not scale so in our future work, we plan to implement the full CI/CD workflow. 
 
 ## Unconventional Patterns 
-Conventional usage of DBT preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
+Conventional usage of dbt preaches the use of staging tables as mirrors of the source. According to the guide in Appendix B, the most standard types of staging model transformations are:
 - Renaming 
 - Type casting
 - Basic computations (e.g. with macros, sql functions, etc)
@@ -234,8 +234,8 @@ Conventional usage of DBT preaches the use of staging tables as mirrors of the s
 The only way to get the `load_time` values was join on the `COPY_HISTORY` table view. You can find this unconventional pattern in `data-orchestration/dags/dbt/data_community_input`. 
 
 
-## DBT Documentation 
-The DBT documentation site can be improved.
+## dbt Documentation 
+The dbt documentation site can be improved.
 
 ## Local Development 
 We could have leveraged tools like [LocalStack](https://localstack.cloud/) to emulate the AWS services for testing.
