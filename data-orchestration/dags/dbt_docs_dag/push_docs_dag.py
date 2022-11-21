@@ -57,7 +57,8 @@ with DAG(
 
     dbt_docs_generate = BashOperator(
         task_id='dbt_docs_generate',
-        bash_command="/opt/airflow/dags/dbt_docs_dag/scripts/generate_docs.sh "
+        bash_command="/opt/airflow/dags/dbt_docs_dag/scripts/generate_docs.sh ",
+        env=dbt_env_json
     )
 
     el_start >> dbt_docs_generate >> push_docs_to_s3 >> el_end >> el_fail_watcher

@@ -9,4 +9,3 @@ s3:
     - manifest.json
     - partial_parse.msgpack
     - run_results.json
-    - sources.json

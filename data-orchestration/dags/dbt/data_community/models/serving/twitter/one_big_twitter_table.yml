@@ -126,12 +126,6 @@ models:
                 warn_if: ">0" 
       - name: pinned_tweet_id
         description: The tweet id of the requested user's pinned tweet 
-        tests:
-          - not_null:
-              config:
-                severity: error
-                error_if: ">100"
-                warn_if: ">0" 
       - name: edit_history_tweet_ids
         descripton: The tweet ids of previous versions of the requested tweet
         tests:

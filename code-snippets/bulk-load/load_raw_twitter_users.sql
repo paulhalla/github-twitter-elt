@@ -3,6 +3,7 @@ use role accountadmin;
 use database airbyte_database;
 
 
+create or replace pipe airbyte_database.public.twitter_users_snowpipe auto_ingest=true as
 copy into airbyte_database.public.raw_twitter_users
 from (
     select 
