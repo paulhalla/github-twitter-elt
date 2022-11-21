@@ -1,7 +1,7 @@
 s3:
   bucket_name: 'dec2-dbt-docs'
   ingest_folder: 'decbrismoh-snowflake'
-  docs_files_path: '/opt/airflow/dags/dbt/data_community/target'
+  docs_files_path: '/tmp/dbt/data_community/target'
   docs_files:
     - catalog.json
     - graph.gpickle
