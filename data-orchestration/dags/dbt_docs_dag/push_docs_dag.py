@@ -53,7 +53,7 @@ with DAG(
         python_callable=push_docs
     )
 
-    dbt_env_json = Variable.get("dbt_ENV", deserialize_json=True)
+    dbt_env_json = Variable.get("DBT_ENV", deserialize_json=True)
 
     dbt_docs_generate = BashOperator(
         task_id='dbt_docs_generate',
