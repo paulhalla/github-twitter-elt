@@ -58,6 +58,12 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+    AIRFLOW__LOGGING__REMOTE_LOGGING: true
+    AIRFLOW__LOGGING__REMOTE_LOG_CONN_ID: s3_connection
+    AIRFLOW__LOGGING__REMOTE_BASE_LOG_FOLDER: s3://decbrismoh-snowflake/dec-project-2/airflow-logs/
+    AIRFLOW__LOGGING__ENCRYPT_S3_LOGS: false
+    AIRFLOW__LOGGING__LOGGING_CONFIG_CLASS: log_config.LOGGING_CONFIG
+    AIRFLOW__LOGGING__TASK_LOG_READER: s3.task
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     consumer_key: ${consumer_key}
     consumer_secret: ${consumer_secret}
