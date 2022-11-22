@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ rashid ]
+    branches: [ main ]
 
 jobs:
   continuous-integration:
