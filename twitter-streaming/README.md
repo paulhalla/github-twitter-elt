@@ -18,5 +18,3 @@ create table tweets (
     text String
 ) engine = MergeTree order by (id, created_at)
 ```
-
-insert into default.tweets [()] values ()
