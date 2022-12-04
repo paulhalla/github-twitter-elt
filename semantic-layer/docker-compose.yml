@@ -1,0 +1,25 @@
+version: '2.3'
+services:
+  postgres:
+    image: postgres 
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    init: true
+    ports:
+      - "8088:8088"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - type: bind
+        source: ./superset/superset_config_docker.py
+        target: /app/pythonpath/superset_config.py
+    environment:
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
+      - SUPERSET_FEATURE_EMBEDDED_SUPERSET=${SUPERSET_FEATURE_EMBEDDED_SUPERSET}
+    depends_on:
+      - postgres

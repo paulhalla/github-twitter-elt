@@ -1,15 +1,17 @@
 import requests 
 import os
 import json
-import producer.ccloud_lib as ccloud_lib
+import utilities.ccloud_lib as ccloud_lib
 import logging
 from utilities.process_streams import process_streams
 from confluent_kafka.cimpl import Producer
 
+logging.basicConfig(format='%(levelname)s:    %(message)s', level=logging.DEBUG)
+
 
 bearer_token = os.environ.get('APP_ACCESS_TOKEN')
 delivered_records = 0 
-config_file = 'producer/github.config'
+config_file = 'github.config'
 topic = 'tweets'
 conf = ccloud_lib.read_ccloud_config(config_file)
 
@@ -38,7 +40,6 @@ def get_rules():
         raise Exception(
             "Cannot get rules (HTTP {}): {}".format(response.status_code, response.text)
         )
-    print(json.dumps(response.json()))
     return response.json()
 
 
@@ -59,7 +60,6 @@ def delete_all_rules(rules):
                 response.status_code, response.text
             )
         )
-    print(json.dumps(response.json()))
 
 
 def set_rules(delete):
@@ -78,7 +78,6 @@ def set_rules(delete):
         raise Exception(
             "Cannot add rules (HTTP {}): {}".format(response.status_code, response.text)
         )
-    print(json.dumps(response.json()))
 
 
 
@@ -95,7 +94,7 @@ def stream_events(set):
             print("Failed to deliver message: {}".format(err))
         else:
             delivered_records += 1
-            print("Produced record to topic {} partition [{}] @ offset {}"
+            logging.info("Produced record to topic {} partition [{}] @ offset {}"
                     .format(msg.topic(), msg.partition(), msg.offset()))
 
     base_url = f'https://api.twitter.com/2/tweets/search/stream'
@@ -110,13 +109,18 @@ def stream_events(set):
         if response_line:
             json_response = json.loads(response_line)
             tweet_data = json_response.get('data')
-            processed = process_streams(json.dumps(tweet_data))
-            print(processed)
-            producer.produce(topic, key=processed['id'], value=json.dumps(processed), on_delivery=acked)
-            producer.poll(0)
+
+            try:
+                processed = process_streams(json.dumps(tweet_data))
+            except TypeError as err:
+                logging.error(f"An error occurred while processing stream: {err}")
+                continue
+            else:
+                producer.produce(topic, key=processed['id'], value=json.dumps(processed), on_delivery=acked)
+                producer.poll(0)
 
     producer.flush()
-    print("{} messages were produced to topic {}!".format(delivered_records, topic))
+    logging.info("{} messages were produced to topic {}!".format(delivered_records, topic))
 
 
 
