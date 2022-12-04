@@ -1,0 +1,4 @@
+*credentials.txt
+*.config
+*.pyc
+kafka-env
