@@ -1,14 +1,6 @@
-from typing import Union 
 from fastapi import FastAPI 
-from pydantic import BaseModel
-from enum import Enum 
 import requests
 import os 
-
-class ModelName(str, Enum):
-    alexnet = "alexnet"
-    resnet = "resnet"
-    lenet = "lenet"
 
 
 app = FastAPI()
