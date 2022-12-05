@@ -74,13 +74,8 @@ function App() {
 
   return (
     <div className='container my-6'>  
-         
       <div className='mt-4' id='my-superset-container'></div>
-
-      
       <Tweet recentTweets={recentTweets} />
-      
-      
       <h1 className='font-mono'>By Rashid Mohammed</h1> 
     </div>
 
