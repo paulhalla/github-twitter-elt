@@ -18,4 +18,5 @@ airflow.cfg
 **/profiles.yml
 vars.json
 autogit.sh
+*jaas_config.txt
 awscourse

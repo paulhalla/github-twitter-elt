@@ -16,7 +16,7 @@ function App() {
     // get the most recent tweets
     const init = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/recent_events')
+        const response = await axios.get('http://localhost:9876/recent_events')
         // console.table(response.data)
         setRecentTweets([...response.data])
       } catch (error) {
@@ -34,7 +34,7 @@ function App() {
     // get the most recent tweets
     const init = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/access')
+        const response = await axios.get('http://localhost:9876/access')
         setAccessToken(response.data.access_token)
 
       } catch (error) {
@@ -50,7 +50,7 @@ function App() {
     try {
       const response = await axios({
         method: 'post',
-        url: 'http://localhost:8000/access_guest',
+        url: 'http://localhost:9876/access_guest',
         data: JSON.stringify({ token: access_token }),
         headers: {
           'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ function App() {
   return (
     <div className='container my-6'>  
          
-      <div className='my-8' id='my-superset-container'></div>
+      <div className='mt-4' id='my-superset-container'></div>
 
       
       <Tweet recentTweets={recentTweets} />
