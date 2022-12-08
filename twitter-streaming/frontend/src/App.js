@@ -1,9 +1,15 @@
-
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
-import Tweet from './component/tweet';
+import Tweet from './components/tweet';
+import Architecture from './components/architecture';
+import Tools from './components/tools';
 import { embedDashboard } from "@superset-ui/embedded-sdk";
+import Introduction from './components/introduction';
+import Insights from './components/insights';
+import Workflow from './components/worflow';
+import CICD from './components/cicd';
+import Code from './components/code';
 
 
 function App() {
@@ -16,8 +22,7 @@ function App() {
     // get the most recent tweets
     const init = async () => {
       try {
-        const response = await axios.get('http://localhost:9876/recent_events')
-        // console.table(response.data)
+        const response = await axios.get('/backend/recent_events')
         setRecentTweets([...response.data])
       } catch (error) {
         console.error(`An error occurred: ${error}`)
@@ -34,7 +39,7 @@ function App() {
     // get the most recent tweets
     const init = async () => {
       try {
-        const response = await axios.get('http://localhost:9876/access')
+        const response = await axios.get('/backend/access')
         setAccessToken(response.data.access_token)
 
       } catch (error) {
@@ -50,7 +55,7 @@ function App() {
     try {
       const response = await axios({
         method: 'post',
-        url: 'http://localhost:9876/access_guest',
+        url: '/backend/access_guest',
         data: JSON.stringify({ token: access_token }),
         headers: {
           'Content-Type': 'application/json'
@@ -60,12 +65,14 @@ function App() {
     } catch (err){
       console.error(`An error occurred: ${err}`)
     }
-    
   }
 
   embedDashboard({
-    id: "19226426-1072-41af-9a76-5320e372503a",
+    id: "1314c7ab-4510-47ec-a21a-d91c045c1fe1",
     supersetDomain: "http://localhost:8088",
+
+    // local 
+    // supersetDomain: "http://localhost:8088",
     mountPoint: document.getElementById("my-superset-container"),
     fetchGuestToken: () => fetchGuestTokenFromBackend(),
     // dashboardUiConfig: { hideTitle: true },
@@ -73,10 +80,18 @@ function App() {
   
 
   return (
-    <div className='container my-6'>  
-      <div className='mt-4' id='my-superset-container'></div>
+    <div className='container my-6 pt-6 font-mono'>  
+
+      <Introduction />
+      <div className='my-6' id='my-superset-container'></div>
+      <Insights />
       <Tweet recentTweets={recentTweets} />
-      <h1 className='font-mono'>By Rashid Mohammed</h1> 
+      <Tools />
+      <Architecture />
+      <Workflow />
+      <CICD />
+      <Code />
+  
     </div>
 
     

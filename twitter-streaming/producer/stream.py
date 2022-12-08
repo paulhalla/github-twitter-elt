@@ -13,7 +13,19 @@ bearer_token = os.environ.get('APP_ACCESS_TOKEN')
 delivered_records = 0 
 config_file = 'github.config'
 topic = 'tweets'
-conf = ccloud_lib.read_ccloud_config(config_file)
+# conf = ccloud_lib.read_ccloud_config(config_file)
+
+conf = {
+    "bootstrap.servers": os.environ.get('BOOTSTRAP_SERVERS'),
+    "security.protocol": os.environ.get('SECURITY_PROTOCOL'),
+    "sasl.mechanisms": os.environ.get('SASL_MECHANISM'),
+    "sasl.username": os.environ.get("SASL_USERNAME"),
+    "sasl.password": os.environ.get("SASL_PASSWORD"),
+    "compression.type": "lz4",
+    "batch.size": "10000",
+    "request.timeout.ms": "120000",
+    "queue.buffering.max.messages": "200000"
+}
 
 # create producer instance 
 producer_conf = ccloud_lib.pop_schema_registry_params_from_config(conf)
@@ -108,9 +120,9 @@ def stream_events(set):
     for response_line in response.iter_lines():
         if response_line:
             json_response = json.loads(response_line)
-            tweet_data = json_response.get('data')
-
+            
             try:
+                tweet_data = json_response.get('data')
                 processed = process_streams(json.dumps(tweet_data))
             except TypeError as err:
                 logging.error(f"An error occurred while processing stream: {err}")

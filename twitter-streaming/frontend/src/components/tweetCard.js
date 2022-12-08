@@ -7,7 +7,7 @@ function TweetCard({ tweet }){
     const tweetCreatedAt = moment(tweet.created_at).format('LLLL')
 
     return (
-        <div className="rounded border border-t-4 my-4 px-6 py-4 border-sky-500 ">
+        <div style={{borderColor: '#3F839D'}} className="rounded border border-t-4 my-4 px-6 py-4 ">
             <div style={{display: "flex", justifyContent: 'space-between'}}>
                 <div className="">
                     <img style={{ display: "inline-block"}} className="rounded-full mr-3 mb-1" src={tweet.profile_image_url} />
@@ -26,7 +26,7 @@ function TweetCard({ tweet }){
                 </div>
             </div>
             
-            <p className="font-mono font-semibold mt-2">{tweet.text}</p>
+            <p className="font-mono mt-2">{tweet.text}</p>
 
             <div className='mt-2' style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <img src={clock} className='mr-2 mt-1' style={{height: '15px', width: '15px'}}/>
