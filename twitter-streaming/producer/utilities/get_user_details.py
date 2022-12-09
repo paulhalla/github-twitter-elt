@@ -1,7 +1,23 @@
 import requests 
 import os
 
-def get_user_details(user_id: str):
+def get_user_details(user_id: str) -> dict:
+
+    """
+    Get the details of a tweet author 
+
+    Parameters
+    -----------
+    user_id: str 
+        The user_id of the tweet author 
+
+
+    Returns
+    --------
+    data: dict 
+        User details 
+    
+    """
 
     base_url = f'https://api.twitter.com/2/users/{user_id}'
     params = {
@@ -14,4 +30,6 @@ def get_user_details(user_id: str):
 
     response = requests.get(base_url, params=params, headers=headers)
 
-    return response.json().get('data')
+    data = response.json().get('data')
+
+    return data

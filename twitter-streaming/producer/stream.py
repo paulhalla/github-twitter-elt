@@ -13,7 +13,6 @@ bearer_token = os.environ.get('APP_ACCESS_TOKEN')
 delivered_records = 0 
 config_file = 'github.config'
 topic = 'tweets'
-# conf = ccloud_lib.read_ccloud_config(config_file)
 
 conf = {
     "bootstrap.servers": os.environ.get('BOOTSTRAP_SERVERS'),
@@ -44,7 +43,11 @@ def bearer_oauth(r):
     return r
 
 
-def get_rules():
+def get_rules() -> json:
+
+    """
+    Get stream rules
+    """
     response = requests.get(
         "https://api.twitter.com/2/tweets/search/stream/rules", auth=bearer_oauth
     )
@@ -55,7 +58,11 @@ def get_rules():
     return response.json()
 
 
-def delete_all_rules(rules):
+def delete_all_rules(rules) -> None:
+
+    """
+    Delete all stream rules 
+    """
     if rules is None or "data" not in rules:
         return None
 
@@ -74,7 +81,11 @@ def delete_all_rules(rules):
         )
 
 
-def set_rules(delete):
+def set_rules():
+
+    """
+    Set rules
+    """
     # You can adjust the rules if needed
     sample_rules = [
         {"value": "world cup", "tag": "worldcup"},
@@ -93,7 +104,11 @@ def set_rules(delete):
 
 
 
-def stream_events(set):
+def stream_events() -> None:
+
+    """
+    Stream tweet events and load to Confluent Kafka
+    """
 
     global producer
 
@@ -141,8 +156,8 @@ def stream_events(set):
 def main():
     rules = get_rules()
     delete = delete_all_rules(rules)
-    set = set_rules(delete)
-    stream_events(set)
+    set = set_rules()
+    stream_events()
 
 
 if __name__ == "__main__":
