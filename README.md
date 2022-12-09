@@ -2,17 +2,18 @@
 
 # Data Engineering Projects
 # Table of Content 
-- Put some contents here 
+- [Introduction](#first-introduction)
 
 <br/>
 
 ## Capstone: Data Streaming Application 
 <img align='center' src='assets/tools.png'> <br/>
 
+<br/><br/>
 
 
+<h1 id='first-introduction'>Introduction</h1>
 
-<h2 className='text-2xl font-mono font-bold mt-5 mb-2 text-pink-800'>Introduction</h2>
 <p>
     Soccer is a game played between two teams of eleven players with a ball. It is the most popular game in the world and in many countries, it's known as football. It isn't 
     known exactly when the sport was created however the earliest versions of the game can be traced back to 
@@ -25,7 +26,7 @@
 </p>
 
 <img src='assets/tweets-about-the-2022-fifa-world-cup-2022-12-09T00-40-25.041Z.jpg' />
-<br/><br/>
+<br/>
 
 <h1 style={{ color: '#3F839D' }} className='font-bold font-mono underline text-5xl'>Insights</h1>
 <h2 className='text-2xl font-mono font-bold mt-5 mb-2 text-pink-800'>Highest Number of Tweets</h2>
@@ -126,7 +127,7 @@ Coming soon
 # Code base
 
 ## Code Snippets 
-The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
+The `sql-code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
 
 ## Data Integration 
 This folder contains screenshots of connections in the Airbyte.
