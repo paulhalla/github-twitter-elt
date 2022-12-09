@@ -7,7 +7,7 @@ import Tools from './components/tools';
 import { embedDashboard } from "@superset-ui/embedded-sdk";
 import Introduction from './components/introduction';
 import Insights from './components/insights';
-import Workflow from './components/worflow';
+import Workflow from './components/workflow';
 import CICD from './components/cicd';
 import Code from './components/code';
 
