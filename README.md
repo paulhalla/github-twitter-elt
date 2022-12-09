@@ -1,10 +1,110 @@
 <br/>
 
+# Data Engineering Projects
+# Table of Content 
+- Put some contents here 
+
+<br/>
+
+## Capstone: Data Streaming Application 
+<img align='center' src='assets/tools.png'> <br/>
+
+
+
+
+<h2 className='text-2xl font-mono font-bold mt-5 mb-2 text-pink-800'>Introduction</h2>
+<p>
+    Soccer is a game played between two teams of eleven players with a ball. It is the most popular game in the world and in many countries, it's known as football. It isn't 
+    known exactly when the sport was created however the earliest versions of the game can be traced back to 
+    about 3,000 years ago. Soccer is played by 250 million players in over 200 countries, making it the world's most popular sport
+</p>
+<p>
+    I'm a very big fan of the game. I'm also very passionate about data engineering and everything data. So, I decided to 
+    use the data engineering skills/knowledge gained from the course to build a very simple streaming application that showcases 
+    the twitter activity of other fans. The dashboard below shows the twitter activity.
+</p>
+
+<img src='assets/tweets-about-the-2022-fifa-world-cup-2022-12-09T00-40-25.041Z.jpg' />
+<br/><br/>
+
+<h1 style={{ color: '#3F839D' }} className='font-bold font-mono underline text-5xl'>Insights</h1>
+<h2 className='text-2xl font-mono font-bold mt-5 mb-2 text-pink-800'>Highest Number of Tweets</h2>
+<p className='font-mono my-3'>
+    The highest number of tweets was recorded on 7th December, 2022. 
+    On this day, teams that had qualified for the round of 16 battled for qualification into 
+    the quarter finals. The fixtures on December 7th were as follows:
+</p>
+
+<li>Japan vs Crotia</li>
+<li>Brazil vs South Korea</li>
+<li>Portugal vs Switzerland</li>
+<li>Morocco vs Spain</li>
+
+<p className='font-mono'>
+    In my opinion, the best fixture was <span className='italic'>Brazil vs South Korea</span>. The brazilians were a 
+    ton of fun to watch.
+</p>
+
+<br/>
+
+<h2 className='text-2xl font-mono font-bold mt-5 mb-2 text-pink-800'>Tweets by Location</h2>
+<p className='font-mono my-3'>
+    It comes as no surprise that Nigerians have tweeted the most about the tournament. As Africans, we live and breath 
+    the beautiful game that is soccer. Note that the dataset comprises of 4 days of twitter activity. It's very possible that
+    another nation might be tweeting more aggressively.
+</p>
+
+
+<br/>
+
+# Architecture 
+
+<img src='assets/streaming_project.png' />
+
+**Figure 2:** ***Microservice Architecture***
+
+
+<br/>
+
+<h1 style={{ color: '#3F839D' }} className='font-bold font-mono mt-20 mb-10 underline text-5xl'>Worflow</h1>
+
+- The twitter producer loads a stream of tweets into a Kafka cluster hosted on <a className='underline font-bold' href='https://www.confluent.io/'>confluent</a>.</li>
+
+- Clickhouse consumes the twitter streams using a confluent HTTP Connector
+
+- The python backend connects the React frontend (this webpage) to ClickHouse. The list of recent tweets above is the resultset
+of the simple query below.
+
+    ```sql
+    select top 10 * 
+    from tweets 
+    where username <> '' 
+    order by created_at desc format JSON
+    ```
+
+- The dashboard embedded on this page is developed in <a className='underline font-bold' href='https://superset.apache.org/'>apache superset</a>. 
+Superset uses Postgres as it's default metadata store.  
+
+- Lastly, NGINX is used as  single, reverse proxy server to handle requests.
+
+
+<br/>
+
+# CI/CD 
+
+Coming soon 
+
+
+<br/><br/>
+
+
+## ELT Pipeline for Keyword Frequency Analysis
 <img align='center' src='assets/project.png' />
 
 <br/>
 
 # Table of Content 
+## Project 2
 - [Codebase](#code-base)
 - [Introduction](#introduction)
 - [High-level Task Assignment](#high-level-task-assignment) 
