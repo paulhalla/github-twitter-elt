@@ -17,7 +17,7 @@ jobs:
       #     username: ${{ secrets.DOCKER_USERNAME }}
       #     password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Change location
-        working-directory: ./twitter-streaming
+        working-directory: .
         run: |
           ls -ll
       # - name: Build and push 
