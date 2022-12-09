@@ -1,18 +1,19 @@
 <br/>
 
 <img align='center' src='assets/heading.png'> <br/>
-## Table of Content 
+
+<br/>
+
+# Capstone: Data Streaming Application 
+<img align='center' src='assets/data-stream.png'> <br/>
+**Source**: *https://www.onaudience.com/resources/what-is-data-stream-and-how-to-use-it/*
+
+# Table of Content 
 - [Introduction](#first-introduction)
 - [Insights](#insights)
 - [Tools](#tools)
 - [Architecture](#architecture)
 - [Workflow](#workflow)
-
-<br/>
-
-## Capstone: Data Streaming Application 
-<img align='center' src='assets/data-stream.png'> <br/>
-**Source**: *https://www.onaudience.com/resources/what-is-data-stream-and-how-to-use-it/*
 
 <br/><br/>
 
@@ -34,7 +35,7 @@ the twitter activity of other fans. The dashboard below shows the twitter activi
 
 # Insights
 
-### Highest Number of Tweets
+## Highest Number of Tweets
 
 The highest number of tweets was recorded on 7th December, 2022. 
 On this day, teams that had qualified for the round of 16 battled for qualification into 
@@ -53,7 +54,7 @@ ton of fun to watch.
 
 <br/>
 
-### Tweets by Location
+## Tweets by Location
 
 It comes as no surprise that Nigerians have tweeted the most about the tournament. As Africans, we live and breath 
 the beautiful game that is soccer. Note that the dataset comprises of 4 days of twitter activity. It's very possible that
@@ -115,16 +116,16 @@ Coming soon
 
 <hr>
 
-<br/><br/><br/><br/>
+<br/><br/>
 
 
-## ELT Pipeline for Keyword Frequency Analysis
+
 <img align='center' src='assets/project.png' />
 
 <br/>
 
 # Table of Content 
-## Project 2
+
 - [Codebase](#code-base)
 - [Introduction](#introduction)
 - [High-level Task Assignment](#high-level-task-assignment) 
