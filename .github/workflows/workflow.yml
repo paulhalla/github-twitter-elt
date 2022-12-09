@@ -16,10 +16,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASS }}
-      - name: Change directory into the the NGINX director y
-        run: cd twitter-streaming/nginx
       - name: Build and push 
         uses: docker/build-push-action@v3
+        working-directory: ./twitter-streaming/nginx
         with:
           push: true
           tags: kingmoh/nginx:latest
