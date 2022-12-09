@@ -41,11 +41,11 @@ jobs:
         with:
           context: ./twitter-streaming/producer
           push: false
-          tags: kingmoh/dashboard-backend:latest;
+          tags: kingmoh/dashboard-backend:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v2
         with:
           context: ./twitter-streaming/producer
           push: false
-          tags: kingmoh/dashboard:latest;
+          tags: kingmoh/dashboard:latest
