@@ -7,7 +7,8 @@
 <br/>
 
 ## Capstone: Data Streaming Application 
-<img align='center' src='assets/tools.png'> <br/>
+<img align='center' src='assets/data-stream.png'> <br/>
+**Source**: *https://www.onaudience.com/resources/what-is-data-stream-and-how-to-use-it/*
 
 <br/><br/>
 
@@ -77,7 +78,7 @@
 
 <img src='assets/streaming_project.png' />
 
-**Figure 2:** ***Microservice Architecture***
+**Figure 2:** *Microservice Architecture*
 
 
 <br/>
