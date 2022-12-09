@@ -1,7 +1,7 @@
 <br/>
 
 # Data Engineering Projects
-# Table of Content 
+## Table of Content 
 - [Introduction](#first-introduction)
 
 <br/>
@@ -55,6 +55,21 @@
     another nation might be tweeting more aggressively.
 </p>
 
+
+<br/>
+
+# Tools 
+
+<img align='center' src='assets/tools.png'> <br/>
+
+| Tool | Usage 
+|-------| --------
+| EC2 | Hosting the entire application 
+| Confluent Kafka | Event Store 
+| NGINX | Reverse Proxy Server 
+| React | Application Frontend 
+| ClickHouse | Event Processing 
+| Superset | Data Visualisation
 
 <br/>
 
