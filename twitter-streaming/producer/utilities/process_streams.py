@@ -1,5 +1,7 @@
 import json 
+import logging 
 from utilities.get_user_details import get_user_details
+
 
 def process_streams(json_stream: str) -> dict:
 
@@ -18,7 +20,11 @@ def process_streams(json_stream: str) -> dict:
         Enriched tweet 
     """
     tweet = json.loads(json_stream)
-    user = get_user_details(tweet.get('author_id'))
+
+    try:
+        user = get_user_details(tweet.get('author_id'))
+    except AttributeError as err:
+        logging.error('author_id is not an attribute in json_stream')
 
     if user is None:
         data = tweet 
