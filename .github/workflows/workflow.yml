@@ -18,7 +18,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Build and push 
         uses: docker/build-push-action@v3
-        working-directory: ./twitter-streaming/nginx
         with:
+          file: twitter-streaming/nginx/Dockerfile
+          context: ./twitter-streaming/nginx
           push: true
           tags: kingmoh/nginx:latest
