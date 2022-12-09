@@ -119,7 +119,7 @@ Coming soon
 <br/><br/>
 
 
-
+# Project 2: ELT Pipeline for Keyword Frequency and Sentiment Analysis
 <img align='center' src='assets/project.png' />
 
 <br/>
