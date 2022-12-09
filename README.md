@@ -114,7 +114,6 @@ of the simple query below.
 Coming soon 
 
 
-<hr>
 
 <br/><br/>
 
