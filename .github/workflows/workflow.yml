@@ -18,9 +18,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Change location
         run: |
-          cd ./twitter-streaming/nginx/
-      - name: Build and push 
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: kingmoh/nginx:latest
+          ls
+      # - name: Build and push 
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     push: true
+      #     tags: kingmoh/nginx:latest
