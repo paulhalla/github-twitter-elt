@@ -1,10 +1,10 @@
-name: CI/CD Pipeline
+name: deployment
 on:
   push:
     branches: [ dev ]
 
 jobs:
-  build-images:
+  build-and-deploy-images:
     runs-on: ubuntu-latest
     steps:
       - name: checkout dev
