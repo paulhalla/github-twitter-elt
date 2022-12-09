@@ -19,15 +19,15 @@ def process_streams(json_stream: str) -> dict:
     data: dict 
         Enriched tweet 
     """
-    tweet = json.loads(json_stream)
+    tweet = json.loads(json_stream) if json_stream is not None else None
 
-    try:
-        user = get_user_details(tweet.get('author_id'))
-    except AttributeError as err:
-        logging.error('author_id is not an attribute in json_stream')
+    if tweet is None:
+        return {}
+
+    user = get_user_details(tweet.get('author_id'))
 
     if user is None:
-        data = tweet 
+        data = {**tweet} 
         return data
     
     data = {**user, **tweet}
