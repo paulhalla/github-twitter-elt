@@ -22,7 +22,7 @@ jobs:
           echo "PYTHONPATH=twitter-streaming/producer" >> $GITHUB_ENV
       - name: Test with pytest
         run: |
-          cd twitter-streaming/producer
+          echo "PYTHONPATH=twitter-streaming/producer" >> $GITHUB_ENV
           pytest
 
 
