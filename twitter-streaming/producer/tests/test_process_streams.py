@@ -15,6 +15,8 @@ class TestGetUserDetails():
 
         processed_stream = process_streams(json_stream=user_details)
 
+        print(process_streams)
+
         assert processed_stream is not None 
         assert isinstance(processed_stream, dict) == True
         assert 'id' in processed_stream.keys()
