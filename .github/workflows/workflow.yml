@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Change location
         run: |
-          ls
+          ls -ll
       # - name: Build and push 
       #   uses: docker/build-push-action@v3
       #   with:
