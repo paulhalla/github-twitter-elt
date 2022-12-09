@@ -1,6 +1,6 @@
 <br/>
 
-# Data Engineering Projects
+<img align='center' src='assets/heading.png'> <br/>
 ## Table of Content 
 - [Introduction](#first-introduction)
 - [Insights](#insights)
