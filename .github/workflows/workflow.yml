@@ -19,6 +19,6 @@ jobs:
       - name: Build and push 
         uses: docker/build-push-action@v3
         with:
-          context: ./twitter-streaming/nginx/
+          file: twitter-streaming/nginx/Dockerfile
           push: true
           tags: kingmoh/nginx:latest
