@@ -113,7 +113,9 @@ of the simple query below.
 Coming soon 
 
 
-<br/><br/>
+<hr>
+
+<br/><br/><br/><br/>
 
 
 ## ELT Pipeline for Keyword Frequency Analysis
