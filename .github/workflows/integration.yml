@@ -23,7 +23,7 @@ jobs:
       - name: Test with pytest
         run: |
           echo "PYTHONPATH=twitter-streaming/producer" >> $GITHUB_ENV
-          echo "APP_ACCESS_TOKEN=${{ secrets.APP_ACCESS_TOKEN }}"
+          echo "APP_ACCESS_TOKEN=${{ secrets.APP_ACCESS_TOKEN }}" >> $GITHUB_ENV
           pytest twitter-streaming/producer
 
 
