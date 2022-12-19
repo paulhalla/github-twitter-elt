@@ -17,7 +17,7 @@
     - [Transformation](#transformation) 
     - [Semantic Layer](#semantic-layer) 
 - [Collaboration](#collaboration)
-- [DAGS](#dags)
+- [DAGs](#dags)
 - [Discussions](#discussions)
 - [Appedices and References](#appendices-and-references)
 
@@ -31,8 +31,8 @@ The `code-snippets` folder contains SQL code that was used to build essential ob
 ## Data Integration 
 This folder contains screenshots of connections in the Airbyte.
 
-## Data orchestration 
-This is the main directory of the project. It houses all the airflow dags and the dbt projects. 
+## Data Orchestration 
+This is the main directory of the project. It houses all the airflow DAGs and the dbt projects. 
 
 <br/>
 
@@ -50,8 +50,7 @@ The goal of the project was to design and a build a reliable data pipeline for t
 
 | Pipeline Stage                             | Member Responsible 
 |----------------------------------|------------------- 
-| Ingestion                        | Rashid Mohammed
-| Orchestration                    | Oliver Liu
+| Ingestion & Orchestration | Rashid Mohammed
 | Transformation and Quality Tests | Paul Hallaste
 
 
@@ -71,7 +70,7 @@ Project management - task assignment - was managed using **Notion**. The entire 
 
 The research questions categorised by data source are listed below. 
 
-## Twitter data
+## Twitter Data
 1. Keyword frequency analysis: How often do data practicioners mention cloud data warehouses and which ones? How often and since when do they mention data space trends such as "data mesh" and "data vault"?
 2. Sentiment analysis with regard to data warehouse tools
 
@@ -89,11 +88,11 @@ The research questions categorised by data source are listed below.
 Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. GitHub and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appendix A. Additionally, the data will be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
-## Twitter tweets 
+## Twitter Tweets 
 We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually. The list can be found in `data-orchestration/dags/user_data/users.txt`.
 
 
-## GitHub repo activity dataset via official Airbyte GitHub source.  
+## GitHub Repo activity dataset (via official Airbyte GitHub source)
 The dataset includes the GitHub repos of 6 prominent open-source data orchestration tools: 
 - Airflow
 - Dagster
@@ -115,7 +114,7 @@ Both the GitHub and Twitter datasets were transformed to make the data easily ac
 
 
 
-# Solution architecutre
+# Solution Architecutre
 
 <img src='assets/solution_arch.png' />
 
@@ -155,7 +154,7 @@ dbt was used to transform the ingested data into usable business conformed model
 
 <br/>
 
-# Folder structure
+# Folder Structure
 ## Code Snippets 
 The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
 
@@ -165,9 +164,9 @@ This folder contains screenshots of connections in Airbyte.
 ## Data Orchestration 
 This directory is the main directory of the project. It houses all the airflow dags and the dbt projects. 
 
-# DAGS 
+# DAGs
 
-We created three dags for our pipeline namely:
+We created three DAGs for our pipeline namely:
 
 - **extract_tweets**: 
 
@@ -189,9 +188,9 @@ We created three dags for our pipeline namely:
 
     <img src='assets/extract_github_data.png' >
 
-    **Figure 2**: GitHub Dag
+    **Figure 2**: GitHub DAG
 
-    The `extract_github_data` dag was used to perform ELT on the github repo data. The dag starts by notifying the team about its start. Subsequently, a replication job in airbyte is triggered with the `trigger_sync` task. If it succeeds, the `succeed_github_extraction` task is triggered. It notifies the team about the successful completion of the replication. However if the `trigger_sync` task fails, the `succeed_github_extraction` task is skipped and `fail_github_extraction` task is triggered. This task notifies the team about the unsuccessful replication of the github data in our snowflake database. Lastly, a watcher task observes each task and is triggered when any of the tasks fails. 
+    The `extract_github_data` DAG was used to perform ELT on the github repo data. The DAG starts by notifying the team about its start. Subsequently, a replication job in airbyte is triggered with the `trigger_sync` task. If it succeeds, the `succeed_github_extraction` task is triggered. It notifies the team about the successful completion of the replication. However if the `trigger_sync` task fails, the `succeed_github_extraction` task is skipped and `fail_github_extraction` task is triggered. This task notifies the team about the unsuccessful replication of the github data in our snowflake database. Lastly, a watcher task observes each task and is triggered when any of the tasks fails. 
 
 <br/>
 
@@ -201,9 +200,9 @@ We created three dags for our pipeline namely:
 
     <img src='assets/dbt_docs.png' />
 
-    **Figure 3**: Serve dbt Documentation Dag
+    **Figure 3**: Serve dbt Documentation DAG
 
-    This dag updates the dbt documentation website daily. A dag run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
+    This DAG updates the dbt documentation website daily. A DAG run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
 
 <br/>
 
