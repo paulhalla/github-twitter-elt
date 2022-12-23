@@ -7,7 +7,7 @@ models:
         meta:
           dimension:
             type: string
-      - name: tweet_created_at
+      - name: tweet_date
         description: ""
         meta:
           dimension:
