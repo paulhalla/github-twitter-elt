@@ -14,10 +14,10 @@
     - [Ingestion](#ingestion)
     - [Transformation](#transformation) 
     - [Semantic Layer](#semantic-layer) 
+- [DAGs](#dags)
 - [Task Assignment](#task-assignment) 
     - [Collaboration](#collaboration)
     - [Project Management](#project-management)
-- [DAGs](#dags)
 - [Discussions](#discussions)
 - [Appedices and References](#appendices-and-references)
 
@@ -177,10 +177,6 @@ We created three dags for our pipeline:
     This DAG updates the dbt documentation website daily. A DAG run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
 
 <br/>
-
-# Visualizations
-
-
 
 
 # Task Assignment
