@@ -1,6 +1,6 @@
 <br/>
 
-<img align='center' src='assets/project.png' />
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/main/assets/project.png" width="500" height="350"><br></p>
 
 <br/>
 
@@ -101,7 +101,6 @@ Both the GitHub and Twitter datasets were transformed to make the data easily ac
 
 <img src='assets/solution_arch.png' />
 
-
 ## Orchestration 
 Pipeline orchestration was performed with **Apache Airflow**. Airflow was run on a `t2.large` EC2 instance using `docker-compose`. The original airflow image had to be extended to include `dbt` in a separate virtual environment. The `Dockerfile` used can be found in the `data-orchestration` directory. 
 
@@ -178,6 +177,10 @@ We created three dags for our pipeline:
     This DAG updates the dbt documentation website daily. A DAG run begins by notifying the team about its start. The `dbt_docs_generate` task generates the dbt documentation files in the `target` folder of the dbt project. `push_docs_to_s3` is a python task that pushes the files to an S3 bucket with `boto3`. The `docs_update_succeeded` task is only triggered if the upload to s3 was successful. The `docs_update_failed` task is skipped if the upload to S3 was a success. The `watcher` is only triggered if any of the upstream tasks failed. The dbt documentation site is public and can be found [here](http://dec2-dbt-docs.s3-website.us-east-1.amazonaws.com). 
 
 <br/>
+
+# Visualizations
+
+
 
 
 # Task Assignment
