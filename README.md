@@ -1,6 +1,6 @@
 <br/>
 
-<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/main/assets/project.png" width="500" height="350"><br></p>
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/main/assets/project.png" width="700" height="490"><br></p>
 
 <br/>
 
@@ -178,6 +178,12 @@ We created three dags for our pipeline:
 
 <br/>
 
+# Visualizations
+
+
+
+
+<br/>
 
 # Task Assignment
 
