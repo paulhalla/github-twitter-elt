@@ -7,8 +7,6 @@
 # Table of Content 
 - [Codebase](#code-base)
 - [Introduction](#introduction)
-- [High-level Task Assignment](#high-level-task-assignment) 
-- [Project Management](#project-management)
 - [Research Questions](#research-questions)
 - [Data Sources](#data-sources)
 - [Solution Architecture](#solution-architecutre)
@@ -16,7 +14,9 @@
     - [Ingestion](#ingestion)
     - [Transformation](#transformation) 
     - [Semantic Layer](#semantic-layer) 
-- [Collaboration](#collaboration)
+- [Task Assignment](#task-assignment) 
+    - [Collaboration](#collaboration)
+    - [Project Management](#project-management)
 - [DAGs](#dags)
 - [Discussions](#discussions)
 - [Appedices and References](#appendices-and-references)
@@ -42,27 +42,10 @@ Keyword frequency is defined as how often a keyword appears in a given piece of 
 
 Sentiment analysis refers a process that seeks to computationally categorise the opinion expressed in a piece of text to learn the writer's attitude towards a particular subject. Generally, categories considered are *positive*, *negative*, and *neutral*.
 
-The goal of the project was to design and a build a reliable data pipeline for the data science consultancy company, **PRO Inc**. The development of the pipeline was the key to answering some research questions. The owners - Paul, Rashid, and Oliver, allowed a period of three weeks to complete the project.
+The goal of the project was to design and a build a reliable data pipeline for the data science consultancy company, **PRO Inc**. The development of the pipeline was the key to answering some research questions. The owners - Rashid and Paul, allowed a period of three weeks to complete the project.
 
 <br/>
 
-# High-level Task Assignment 
-
-| Pipeline Stage                             | Member Responsible 
-|----------------------------------|------------------- 
-| Ingestion & Orchestration | Rashid Mohammed
-| Transformation and Quality Tests | Paul Hallaste
-
-
-<br/>
-
-# Project Management 
-Project management - task assignment - was managed using **Notion**. The entire project Kanban can be found [here](https://like-piano-930.notion.site/d3f2c7729bf04ed896912c51831e489d?v=4bec58581c444950b42ab5ede25492c5). Project meetings were held on a weekly basis to:
-- Make sure team members were on schedule 
-- Reschedule tasks were necessary
-- Share knowledge
-
-<img src='assets/Kanban.png'/>
 
 <br/>
 
@@ -70,7 +53,7 @@ Project management - task assignment - was managed using **Notion**. The entire 
 
 The research questions categorised by data source are listed below. 
 
-## Twitter Data
+## Twitter data
 1. Keyword frequency analysis: How often do data practicioners mention cloud data warehouses and which ones? How often and since when do they mention data space trends such as "data mesh" and "data vault"?
 2. Sentiment analysis with regard to data warehouse tools
 
@@ -88,11 +71,11 @@ The research questions categorised by data source are listed below.
 Several data sources were considered however upon careful consideration, we decided to extract the textual data from **GitHub** and **Twitter**. GitHub and Twitter provide arguably reliable REST API endpoints that can be used to query data. Helpful resources on how to get started with these endpoints are provided in Appendix A. Additionally, the data will be useful for anyone that is interested in trends in the data space, including data practitioners and investors.
 
 
-## Twitter Tweets 
+## Twitter tweets 
 We have extracted the tweets from various data influencers and people who are part of Data Twitter as it's sometimes called colloquially. The list of Twitter users was scraped from Twitter handles featured in the [Data Creators Club site](https://datacreators.club/) by [Mehdi Ouazza](https://github.com/mehd-io), to which other influencers active in the data space were added manually. The list can be found in `data-orchestration/dags/user_data/users.txt`.
 
 
-## GitHub Repo activity dataset (via official Airbyte GitHub source)
+## GitHub repo activity dataset via official Airbyte GitHub source  
 The dataset includes the GitHub repos of 6 prominent open-source data orchestration tools: 
 - Airflow
 - Dagster
@@ -106,7 +89,7 @@ The dataset includes the GitHub repos of 6 prominent open-source data orchestrat
 
 
 ## Transformation 
-Both the GitHub and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code use for Snowpipe this transformation can be seen in [this folder](https://github.com/paulhalla/dec-project-2/tree/paulhalla/code-snippets/bulk-load).
+Both the GitHub and Twitter datasets were transformed to make the data easily accessible. As Twitter data was ingested from JSON files in S3 buckets, the content of the files was flattened such that each row in the target table corresponds to a tweet. For each row, the username of the user who published the tweet was appended in an extra column, which was populated via the username substring available in the ingested filenames. The code used for Snowpipe this transformation can be seen in [this folder](https://github.com/paulhalla/dec-project-2/tree/paulhalla/code-snippets/bulk-load).
 
 
 <br/>
@@ -154,19 +137,9 @@ dbt was used to transform the ingested data into usable business conformed model
 
 <br/>
 
-# Folder Structure
-## Code Snippets 
-The `code-snippets` folder contains SQL code that was used to build essential objects like **stages**. **integrations**, and **tables**. The snippets are categorised neatly in sub-directories with self-explanatory names. 
+# DAGs 
 
-## Data Integration 
-This folder contains screenshots of connections in Airbyte.
-
-## Data Orchestration 
-This directory is the main directory of the project. It houses all the airflow dags and the dbt projects. 
-
-# DAGs
-
-We created three DAGs for our pipeline namely:
+We created three dags for our pipeline:
 
 - **extract_tweets**: 
 
@@ -176,9 +149,9 @@ We created three DAGs for our pipeline namely:
 
     **Figure 1**: Twitter DAG
 
-    The `extract_tweets` dag was used to perform ELT on the twitter data. It was made up of 7 tasks as shown in the figure 1 above. A dag run starts by alerting the team in Slack that it's about to start. It then triggers the python script to start the tweet data extraction. If the extraction is successful, we build the raw tweet tables with the `data_community_input` dbt project. The task is skipped if the upstream task fails. The `dbt_freshness` task checks the freshness of the preprocessed tweet data. It is only triggered if all the upstream tasks succeeded. If the last update of the source was at least 2 days ago, this task fails otherwise, it passes. The `twitter_dbt_run` task performs another transformation on the preprocessed data for visualisation. If no upstream tasks failed then the `twitter_extracts_end` task is triggered. It sends a message to the team about a successful run, otherwise, this task is skipped and the `twitter_extracts_fail` task notifies the team of the dag failure. 
+    The `extract_tweets` DAG was used to perform ELT on the twitter data. It was made up of 7 tasks as shown in the figure 1 above. A DAG run starts by alerting the team in Slack that it's about to start. It then triggers the python script to start the tweet data extraction. If the extraction is successful, we build the raw tweet tables with the `data_community_input` dbt project. The task is skipped if the upstream task fails. The `dbt_freshness` task checks the freshness of the preprocessed tweet data. It is only triggered if all the upstream tasks succeeded. If the last update of the source was at least 2 days ago, this task fails otherwise, it passes. The `twitter_dbt_run` task performs another transformation on the preprocessed data for visualisation. If no upstream tasks failed then the `twitter_extracts_end` task is triggered. It sends a message to the team about a successful run, otherwise, this task is skipped and the `twitter_extracts_fail` task notifies the team of the DAG failure. 
 
-    In the figure 1 above, the dag failed because we exceeded our monthly API limit for twitter. 
+    In the figure 1 above, the DAG failed because we exceeded our monthly API limit for twitter. 
 
 <br/>
 
@@ -206,7 +179,26 @@ We created three DAGs for our pipeline namely:
 
 <br/>
 
-# Collaboration 
+
+# Task Assignment
+
+| Pipeline Stage                             | Member Responsible 
+|----------------------------------|------------------- 
+| Ingestion                        | Rashid Mohammed
+| Transformation and Quality Tests | Paul Hallaste
+
+
+<br/>
+
+## Project Management 
+Project management - task assignment - was managed using **Notion**. The entire project Kanban can be found [here](https://like-piano-930.notion.site/d3f2c7729bf04ed896912c51831e489d?v=4bec58581c444950b42ab5ede25492c5). Project meetings were held on a weekly basis to:
+- Make sure team members were on schedule 
+- Reschedule tasks were necessary
+- Share knowledge
+
+<img src='assets/Kanban.png'/>
+
+## Collaboration 
 
 GitHub was used to collaboratively work on this project. See Figure 4 below for some of our merge requests.
 
