@@ -187,11 +187,11 @@ We created three dags for our pipeline:
 
 <br/>
 
-<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_prs_per_repo_monthly.png"><br><em>PRs Per Repo - Monthly: Airflow has the most PRs/month, followed by Dagster.</em></p>
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_prs_per_repo_monthly.png" width="900" height="393"><br><em>PRs Per Repo - Monthly: Airflow has the most PRs/month, followed by Dagster.</em></p>
 
 <br/>
 
-<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_pr_reactions_per_repo.png" width="700" height="490"><br><em>PR Reactions Per Repo</em></p>
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_pr_reactions_per_repo.png" width="700" height="490"><br><em>PR Reactions Per Repo: Airflow contributors are a hearty bunch. Prefect contributors like the rocket emoji. Luigi contributors are seemingly outwardly stoic, using little reactions at all.</em></p>
 
 
 
