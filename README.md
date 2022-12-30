@@ -179,6 +179,19 @@ We created three dags for our pipeline:
 <br/>
 
 # Visualizations
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_stars_per_repo_quarterly.png"><br><em>Stars Per Repo - Quarterly: Airflow and Prefect in particular are rising, the latter with a conspicuous spike in Aug 2020. Luigi is the earliest one and is still starred regularly (although less than its competitors)</em></p>
+
+<br/>
+
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_stars_per_repo_daily.png"><br><em>Stars Per Repo - Daily: Prefect spike on Aug 8th 2020 coincides with the <a href=https://medium.com/the-prefect-blog/the-all-new-prefect-server-and-ui-f3141b111b36>launch of Prefect Server and UI</a></em></p>
+
+<br/>
+
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_prs_per_repo_monthly.png"><br><em>PRs Per Repo - Monthly: Airflow has the most PRs/month, followed by Dagster.</em></p>
+
+<br/>
+
+<p align="center"><img src="https://raw.githubusercontent.com/paulhalla/dec-project-2/paulhalla/assets/viz_pr_reactions_per_repo.png" width="700" height="490"><br><em>PR Reactions Per Repo</em></p>
 
 
 
