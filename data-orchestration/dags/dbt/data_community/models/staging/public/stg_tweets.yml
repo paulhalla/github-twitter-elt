@@ -11,7 +11,7 @@ models:
         description: ""
         meta:
           dimension:
-            type: string
+            type: date
       - name: edit_history_tweet_ids
         description: ""
         meta:
